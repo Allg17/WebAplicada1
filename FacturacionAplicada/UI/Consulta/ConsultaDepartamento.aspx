@@ -15,7 +15,7 @@
                     <asp:ListItem Text="Todo"></asp:ListItem>
                     <asp:ListItem Text="ID"></asp:ListItem>
                     <asp:ListItem Text="Nombre"></asp:ListItem>
-                    <asp:ListItem Text="Nombre"></asp:ListItem>
+                   
                 </asp:DropDownList>
 
             </div>
