@@ -25,55 +25,67 @@
             </div>
 
             <div class=" offset-md-2 offset-sm-4 col-sm-4 col-md-3  ">
-                <asp:TextBox ID="FechaDate" runat="server" type="date" CssClass="form-control"></asp:TextBox>
+                <asp:TextBox ID="FechaDate" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
             </div>
             <div class=" col-sm-4 col-md-2">
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" CssClass="ErrorMessage" ControlToValidate="FechaDate" runat="server" ErrorMessage="Ingresar Fecha"></asp:RequiredFieldValidator>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" Display="Dynamic" SetFocusOnError="true" CssClass="ErrorMessage" ControlToValidate="FechaDate" runat="server" ErrorMessage="Ingresar Fecha"></asp:RequiredFieldValidator>
             </div>
         </div>
         <div class="row">
-                <div class="col-sm-4 offset-md-3 col-md-3">
-                    <span>Nombre:</span>
-                </div>
+            <div class="col-sm-4 offset-md-3 col-md-3">
+                <span>Nombre:</span>
             </div>
+        </div>
         <div class="row">
             <div class="offset-md-3 col-sm-8 col-md-4">
                 <asp:TextBox ID="NombreTextBox" runat="server" CssClass="form-control" placeholder="Nombre" aria-label="Nombre"></asp:TextBox>
             </div>
             <div class=" col-sm-4 col-md-4">
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" CssClass="ErrorMessage" ControlToValidate="NombreTextBox" runat="server" ErrorMessage="Ingresar un nombre"></asp:RequiredFieldValidator>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" Display="Dynamic" SetFocusOnError="true" CssClass="ErrorMessage" ControlToValidate="NombreTextBox" runat="server" ErrorMessage="Ingresar un nombre"></asp:RequiredFieldValidator>
             </div>
         </div>
         <div class="row">
-                <div class="col-sm-4 offset-md-3 col-md-3">
-                    <span>Nombre Usuario:</span>
-                </div>
+            <div class="col-sm-4 offset-md-3 col-md-3">
+                <span>Nombre Usuario:</span>
             </div>
+        </div>
         <div class="row">
             <div class="offset-md-3 col-sm-8 col-md-4">
                 <asp:TextBox ID="NombreUsuarioTextBox" runat="server" CssClass="form-control" placeholder="Nombre de usuario" aria-label="Nombre de usuario"></asp:TextBox>
             </div>
+            <div class=" col-sm-4 col-md-4">
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" Display="Dynamic" SetFocusOnError="true" CssClass="ErrorMessage" ControlToValidate="NombreUsuarioTextBox" runat="server" ErrorMessage="Ingresar un nombre de Usuario"></asp:RequiredFieldValidator>
+                <asp:CustomValidator ID="CustomValidator1" Display="Dynamic" SetFocusOnError="true" CssClass="ErrorMessage" ControlToValidate="NombreUsuarioTextBox" runat="server" ErrorMessage="Usuario Existente Ingrese Otro" OnServerValidate="CustomValidator1_ServerValidate1"></asp:CustomValidator>
+            </div>
         </div>
 
         <div class="row">
-                <div class="col-sm-4 offset-md-3 col-md-3">
-                    <span>Contraseña</span>
-                </div>
+            <div class="col-sm-4 offset-md-3 col-md-3">
+                <span>Contraseña</span>
             </div>
+        </div>
         <div class="row">
             <div class="offset-md-3 col-sm-8 col-md-4">
                 <asp:TextBox ID="ContraseñaTextBox" type="password" runat="server" CssClass="form-control" placeholder="Contraseña (con 8 caracteres)" aria-label="Contraseña (con 8 caracteres)" MaxLength="8"></asp:TextBox>
             </div>
+            <div class=" col-sm-4 col-md-4">
+                   <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ContraseñaTextBox" CssClass="ErrorMessage" runat="server" ErrorMessage="Digite una Contraseña"></asp:RequiredFieldValidator>
+            </div>
+
         </div>
 
         <div class="row">
-                <div class="col-sm-4 offset-md-3 col-md-3">
-                    <span>Repetir Contraseña:</span>
-                </div>
+            <div class="col-sm-4 offset-md-3 col-md-3">
+                <span>Repetir Contraseña:</span>
             </div>
+        </div>
         <div class="row">
             <div class="offset-md-3 col-sm-8 col-md-4">
                 <asp:TextBox ID="RepetirContraseñaTextBox" type="password" runat="server" CssClass="form-control" placeholder="Repetir Contraseña (con 8 caracteres)" aria-label="Repetir Contraseña (con 8 caracteres)" MaxLength="8"></asp:TextBox>
+            </div>
+            <div class=" col-sm-4 col-md-4">
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="RepetirContraseñaTextBox" CssClass="ErrorMessage" runat="server" ErrorMessage="Confirmar Contraseña"></asp:RequiredFieldValidator>
+                <asp:CompareValidator ID="CompareValidator1" ControlToCompare="ContraseñaTextBox" Display="Dynamic" SetFocusOnError="true" CssClass="ErrorMessage" ControlToValidate="RepetirContraseñaTextBox" runat="server" ErrorMessage="Contraseñas Diferentes"></asp:CompareValidator>
             </div>
         </div>
         <br />
@@ -82,12 +94,12 @@
                 <asp:CheckBox ID="ContraseñaCheckBox" runat="server" Text=" ver Contraseña" CssClass="form-control" OnCheckedChanged="ContraseñaCheckBox_CheckedChanged" AutoPostBack="true" />
             </div>
         </div>
-   
+
         <div class="row">
-                <div class="col-sm-4 offset-md-3 col-md-3">
-                    <span>Comentario:</span>
-                </div>
+            <div class="col-sm-4 offset-md-3 col-md-3">
+                <span>Comentario:</span>
             </div>
+        </div>
         <div class="row">
             <div class="offset-md-3 col-sm-8 col-md-4">
                 <asp:TextBox ID="ComentarioTextBox" TextMode="MultiLine" runat="server" CssClass="form-control" placeholder="Comentario" aria-label="Comentario" MaxLength="10"></asp:TextBox>
@@ -96,16 +108,16 @@
         <br />
         <div class="row">
             <div class=" offset-md-3 col-sm-3 col-md-2">
-                <asp:Button ID="NuevoButton" CausesValidation="false"  runat="server" Text="Nuevo" CssClass="form-control btn btn-primary" OnClick="NuevoButton_Click" />
+                <asp:Button ID="NuevoButton" CausesValidation="false" runat="server" Text="Nuevo" CssClass="form-control btn btn-primary" OnClick="NuevoButton_Click" />
             </div>
             <div class="col-sm-3 col-md-2">
                 <asp:Button ID="GuardarButton" runat="server" Text="Guardar" CssClass="form-control btn btn-success" OnClick="GuardarButton_Click" />
             </div>
             <div class=" col-sm-3 col-md-2">
-                <asp:Button ID="EliminarButton" CausesValidation="false"  runat="server" Text="Eliminar" CssClass="form-control btn btn-danger" OnClick="EliminarButton_Click" />
+                <asp:Button ID="EliminarButton" CausesValidation="false" runat="server" Text="Eliminar" CssClass="form-control btn btn-danger" OnClick="EliminarButton_Click" />
             </div>
             <div class=" col-sm-3 col-md-2 ">
-                <asp:Button ID="CancelarButton" CausesValidation="false"  runat="server" Text="Cancelar" CssClass="form-control btn btn-info" OnClick="CancelarButton_Click" />
+                <asp:Button ID="CancelarButton" CausesValidation="false" runat="server" Text="Cancelar" CssClass="form-control btn btn-info" OnClick="CancelarButton_Click" />
             </div>
 
 

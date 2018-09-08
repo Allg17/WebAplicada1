@@ -8,7 +8,7 @@ namespace FacturacionAplicada.BLL
 {
     public class HerramientasBLL
     {
-        private static Usuario user = new Usuario();
+        public static Usuario user = new Usuario();
         public static bool Login = false;
         public static decimal CalcularGanancia(decimal precio, decimal costo)
         {
@@ -199,17 +199,6 @@ namespace FacturacionAplicada.BLL
             }
 
             return mayor;
-        }
-
-        public static void NombreLogin(string nombre, int id)
-        {
-            user.Nombre = nombre;
-            user.IdUsuario = id;
-        }
-
-        public static Usuario returnUsuario()
-        {
-            return user;
         }
 
         public static decimal RetornarDevuelta(decimal efectivo, decimal monto)

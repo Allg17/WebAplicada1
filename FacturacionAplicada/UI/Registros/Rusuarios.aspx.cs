@@ -12,6 +12,7 @@ namespace FacturacionAplicada.UI.Registros
     public partial class Rusuarios : System.Web.UI.Page
     {
         string Condicion = "Seleccione Para Buscar";
+        bool paso = false;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -111,9 +112,6 @@ namespace FacturacionAplicada.UI.Registros
             ComentarioTextBox.Text = string.Empty;
             FechaDate.Text = string.Empty;
             //Volviendo los textbox a su color normal
-      
-
-
 
         }
 
@@ -133,7 +131,7 @@ namespace FacturacionAplicada.UI.Registros
             Limpiar();
             EnableFalse();
         }
-        //Terminar //todo: Terminar el buscar en el dropdown
+
         protected void UsuarioDropDownList_TextChanged(object sender, EventArgs e)
         {
            
@@ -173,13 +171,9 @@ namespace FacturacionAplicada.UI.Registros
 
         protected void GuardarButton_Click(object sender, EventArgs e)
         {
-            
-            LimpiarErrores();
-            if (Validar())
-            {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "ModalValidar", "$('#ModalValidar').modal();", true);
+
+            if (paso)
                 return;
-            }
 
             if (UsuarioDropDownList.Text == Condicion)
             {
@@ -230,45 +224,23 @@ namespace FacturacionAplicada.UI.Registros
 
             user.NombreUsuario = NombreUsuarioTextBox.Text;
             user.Nombre = NombreTextBox.Text;
-            if (!Validar())
-            {
-                user.Clave = ContraseñaTextBox.Text;
-            }
-            else
-            {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['danger']('Las contraseñas no son iguales');", addScriptTags: true);
-                user = null;
-                return user;
-            }
+            user.Clave = ContraseñaTextBox.Text; 
             user.Fecha = Convert.ToDateTime(FechaDate.Text);
             user.Comentario = ComentarioTextBox.Text;
 
             return user;
         }
 
-        private bool Validar()
+        protected void CustomValidator1_ServerValidate1(object source, ServerValidateEventArgs args)
         {
-            bool paso = false;
-           
-            if (string.IsNullOrWhiteSpace(ContraseñaTextBox.Text) || ContraseñaTextBox.MaxLength < 8 ||
-                string.IsNullOrWhiteSpace(RepetirContraseñaTextBox.Text) || RepetirContraseñaTextBox.MaxLength < 8
-                || !ContraseñaTextBox.Text.Equals(RepetirContraseñaTextBox.Text))
+            var nombre = (BLL.UsuarioBLL.GetList(x => x.NombreUsuario == NombreUsuarioTextBox.Text)).ElementAt(0).NombreUsuario;
+            if (args.Value.Equals(nombre))
             {
-                ContraseñaTextBox.BackColor = System.Drawing.ColorTranslator.FromHtml("#F50303");
-                RepetirContraseñaTextBox.BackColor = System.Drawing.ColorTranslator.FromHtml("#F50303");
-                ContraseñaTextBox.ToolTip = "Ingrese una contraseña valida de 8 caracteres";
-                RepetirContraseñaTextBox.ToolTip = "Ingrese una contraseña valida de 8 caracteres e igual a la anterior";
+                args.IsValid = false;
                 paso = true;
             }
-            if (BLL.UsuarioBLL.GetList(t => t.NombreUsuario == NombreUsuarioTextBox.Text).Exists(t => t.NombreUsuario
-            == NombreUsuarioTextBox.Text) && UsuarioDropDownList.SelectedItem.Text == Condicion)
-            {
-                NombreUsuarioTextBox.BackColor = System.Drawing.ColorTranslator.FromHtml("#F50303");
-                NombreUsuarioTextBox.ToolTip = "Usuario existente, ingrese otro";
-                paso = true;
-            }
-
-            return paso;
+            else
+                args.IsValid = true;
         }
     }
 }

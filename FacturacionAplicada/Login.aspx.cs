@@ -28,7 +28,8 @@ namespace FacturacionAplicada.UI.Registros
             if (BLL.UsuarioBLL.GetList(filtrar).Count() != 0)
             {
                 FormsAuthentication.RedirectFromLoginPage(user.Nombre,true);
-                //user = BLL.UsuarioBLL.GetList(filtrar).ElementAt(0);
+                user = BLL.UsuarioBLL.GetList(filtrar).ElementAt(0);
+                BLL.HerramientasBLL.user = user;
                 //BLL.HerramientasBLL.NombreLogin(user.Nombre, user.IdUsuario);
                 //BLL.HerramientasBLL.Login = true;
 

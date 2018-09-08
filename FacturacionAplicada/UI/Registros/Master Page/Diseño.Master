@@ -26,6 +26,13 @@
     });
     </script>--%>
 
+    <script type="text/javascript">
+        function validateLength(oSrc, args) {
+            var nombre = (BLL.UsuarioBLL.GetList(x => x.NombreUsuario == NombreUsuarioTextBox.Text)).ElementAt(0).NombreUsuario;
+            args.IsValid = (args.Value.Equals(nombre));
+        }
+    </script>
+
 
     <title></title>
 
@@ -231,7 +238,7 @@
                 </div>
             </div>
 
-           
+
 
             <div>
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">

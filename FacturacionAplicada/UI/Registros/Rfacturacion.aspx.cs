@@ -76,7 +76,7 @@ namespace FacturacionAplicada.UI.Registros
 
 
             }
-          
+
         }
 
         protected void FacturaDetalleGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -143,7 +143,7 @@ namespace FacturacionAplicada.UI.Registros
         {
             FacturaDropDownList.Text = Condicion;
             Fecha.Text = DateTime.Now.ToString("yyyy-MM-dd");
-            
+
             DescripcionTextBox.Text = string.Empty;
             CantidadTextBox.Text = string.Empty;
             ArticuloDropDownList.Text = Condicion;
@@ -163,7 +163,7 @@ namespace FacturacionAplicada.UI.Registros
 
         protected void NuevoButton_Click(object sender, EventArgs e)
         {
-           
+
             EnableALL();
         }
 
@@ -184,9 +184,17 @@ namespace FacturacionAplicada.UI.Registros
             }
 
             if (FacturaDropDownList.Text != Condicion)
+            {
+                if(billes.BillDetalle.Exists(x=>x.ProductoId.Equals(Convert.ToInt32(ArticuloDropDownList.SelectedValue))))
+                {
+                   var articulo =  billes.BillDetalle.Where(x => x.ProductoId.Equals(Convert.ToInt32(ArticuloDropDownList.SelectedValue)));
+
+                }
+
                 billes.BillDetalle.Add(new FacturaDetalle(0, Convert.ToInt32(FacturaDropDownList.SelectedValue), Convert.ToInt32(ArticuloDropDownList.SelectedValue), Convert.ToInt32(CantidadTextBox.Text), Convert.ToDecimal(PrecioArticuloTextBox.Text), ArticuloDropDownList.SelectedItem.Text, Convert.ToDecimal(ImporteTextBox.Text)));
+            }
             else
-                billes.BillDetalle.Add(new FacturaDetalle(0,0, Convert.ToInt32(ArticuloDropDownList.SelectedValue), Convert.ToInt32(CantidadTextBox.Text), Convert.ToDecimal(PrecioArticuloTextBox.Text), ArticuloDropDownList.SelectedItem.Text, Convert.ToDecimal(ImporteTextBox.Text)));
+                billes.BillDetalle.Add(new FacturaDetalle(0, 0, Convert.ToInt32(ArticuloDropDownList.SelectedValue), Convert.ToInt32(CantidadTextBox.Text), Convert.ToDecimal(PrecioArticuloTextBox.Text), ArticuloDropDownList.SelectedItem.Text, Convert.ToDecimal(ImporteTextBox.Text)));
 
             ViewState["Detalle"] = billes.BillDetalle;
 
@@ -341,7 +349,7 @@ namespace FacturacionAplicada.UI.Registros
 
         protected void FacturaDropDownList_TextChanged(object sender, EventArgs e)
         {
-           
+
             int id = Convert.ToInt32(FacturaDropDownList.SelectedValue);
             billes = BLL.FacturacionBLL.Buscar(id);
 
@@ -385,15 +393,17 @@ namespace FacturacionAplicada.UI.Registros
 
         protected void Modificar_Click(object sender, EventArgs e)
         {
-            //GridViewRow row = FacturaDetalleGridView.SelectedRow;
-            //int index = FacturaDetalleGridView.SelectedIndex;
-            // int id = Convert.ToInt32(FacturaDetalleGridView.DataKeys[row.RowIndex].Value);
-
-            FacturaDetalleGridView.EditIndex = FacturaDetalleGridView.SelectedIndex;
+            GridViewRow row = FacturaDetalleGridView.SelectedRow;
+            int id = Convert.ToInt32(FacturaDetalleGridView.DataKeys[row.RowIndex].Value);
+            List<FacturaDetalle> lista = (List<FacturaDetalle>)ViewState["Detalle"];
 
 
+            var Articulo = lista.Where(X => X.Id.Equals(id)).ElementAt(0);
+            ArticuloDropDownList.SelectedIndex = Articulo.ProductoId;
+            PrecioArticuloTextBox.Text = Articulo.Precio.ToString();
+            CantidadTextBox.Text = Articulo.Cantidad.ToString();
+            ImporteTextBox.Text = BLL.HerramientasBLL.Importedemas(Convert.ToDecimal(CantidadTextBox.Text), Convert.ToDecimal(PrecioArticuloTextBox.Text)).ToString();
 
-            CalcularMonto();
         }
 
         protected void FacturaDetalleGridView_RowEditing(object sender, GridViewEditEventArgs e)
