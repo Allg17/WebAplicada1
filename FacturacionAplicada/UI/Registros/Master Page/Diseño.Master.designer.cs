@@ -103,6 +103,15 @@ namespace FacturacionAplicada.UI.Registros.Master_Page {
         protected global::System.Web.UI.WebControls.Button DepartamentoConsultaButton;
         
         /// <summary>
+        /// UsuariosConsultaButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button UsuariosConsultaButton;
+        
+        /// <summary>
         /// UsuarioTextBox control.
         /// </summary>
         /// <remarks>

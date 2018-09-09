@@ -93,6 +93,7 @@
     <Content Include="DAL\Script.sql" />
     <Content Include="Login.aspx" />
     <Content Include="UI\Consulta\ConsultaDepartamento.aspx" />
+    <Content Include="UI\Consulta\ConsultaDeUsuarios.aspx" />
     <Content Include="UI\Registros\Master Page\Diseño.Master" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -221,6 +222,13 @@
     </Compile>
     <Compile Include="UI\Consulta\ConsultaDepartamento.aspx.designer.cs">
       <DependentUpon>ConsultaDepartamento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Consulta\ConsultaDeUsuarios.aspx.cs">
+      <DependentUpon>ConsultaDeUsuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\Consulta\ConsultaDeUsuarios.aspx.designer.cs">
+      <DependentUpon>ConsultaDeUsuarios.aspx</DependentUpon>
     </Compile>
     <Compile Include="UI\Registros\Master Page\Diseño.Master.cs">
       <DependentUpon>Diseño.Master</DependentUpon>

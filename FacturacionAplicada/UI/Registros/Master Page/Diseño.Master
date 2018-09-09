@@ -149,7 +149,7 @@
                                 <a class="dropdown-item" href="#">Articulos</a>
                                 <a class="dropdown-item" href="#">Entrada Articulos</a>
                                 <asp:Button ID="DepartamentoConsultaButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Departamento " OnClick="DepartamentoConsultaButton_Click" />
-                                <a class="dropdown-item" href="#">Usuarios</a>
+                                <asp:Button ID="UsuariosConsultaButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Usuario " OnClick="UsuariosConsultaButton_Click" />
                                 <a class="dropdown-item" href="#">Clientes</a>
 
                             </div>

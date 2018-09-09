@@ -309,7 +309,7 @@ namespace FacturacionAplicada.UI.Registros
             else
                 bill.ClienteId = 0;
 
-            bill.UsuarioId = BLL.HerramientasBLL.returnUsuario().IdUsuario;
+            bill.UsuarioId = BLL.HerramientasBLL.user.IdUsuario;
 
             bill.Fecha = Convert.ToDateTime(Fecha.Text);
 

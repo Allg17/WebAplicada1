@@ -101,5 +101,10 @@ namespace FacturacionAplicada.UI.Registros.Master_Page
         {
             Server.Transfer("/UI/Consulta/ConsultaDepartamento.aspx");
         }
+
+        protected void UsuariosConsultaButton_Click(object sender, EventArgs e)
+        {
+            Server.Transfer("/UI/Consulta/ConsultaDeUsuarios.aspx");
+        }
     }
 }

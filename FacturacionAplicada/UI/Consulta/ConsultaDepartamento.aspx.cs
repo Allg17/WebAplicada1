@@ -25,12 +25,7 @@ namespace FacturacionAplicada.UI.Consulta
         Expression<Func<Departamento, bool>> filtrar = x => true;
         protected void BuscarButton_Click(object sender, EventArgs e)
         {
-
             int id;
-
-
-
-
             switch (FiltroComboBox.SelectedIndex)
             {
 
