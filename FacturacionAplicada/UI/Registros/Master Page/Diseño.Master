@@ -145,12 +145,12 @@
                             <a class="navbar-brand dropdown-toggle" href="#" id="ConsultasDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Consultas
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Facturacion</a>
-                                <a class="dropdown-item" href="#">Articulos</a>
-                                <a class="dropdown-item" href="#">Entrada Articulos</a>
+                               <asp:Button ID="cFacturacionButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Facturacion " OnClick="cFacturacionButton_Click" />
+                                <asp:Button ID="cArticulosButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Articulos " OnClick="cArticulosButton_Click" />
+                                <asp:Button ID="EntradaButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Entrada Articulo " OnClick="EntradaButton_Click" />
                                 <asp:Button ID="DepartamentoConsultaButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Departamento " OnClick="DepartamentoConsultaButton_Click" />
                                 <asp:Button ID="UsuariosConsultaButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Usuario " OnClick="UsuariosConsultaButton_Click" />
-                                <a class="dropdown-item" href="#">Clientes</a>
+                                <asp:Button ID="cClientesButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Clientes " OnClick="cClientesButton_Click" />
 
                             </div>
                         </li>

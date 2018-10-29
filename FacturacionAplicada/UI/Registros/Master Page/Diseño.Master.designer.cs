@@ -94,6 +94,33 @@ namespace FacturacionAplicada.UI.Registros.Master_Page {
         protected global::System.Web.UI.WebControls.Button FarturacionButton;
         
         /// <summary>
+        /// cFacturacionButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button cFacturacionButton;
+        
+        /// <summary>
+        /// cArticulosButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button cArticulosButton;
+        
+        /// <summary>
+        /// EntradaButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button EntradaButton;
+        
+        /// <summary>
         /// DepartamentoConsultaButton control.
         /// </summary>
         /// <remarks>
@@ -110,6 +137,15 @@ namespace FacturacionAplicada.UI.Registros.Master_Page {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button UsuariosConsultaButton;
+        
+        /// <summary>
+        /// cClientesButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button cClientesButton;
         
         /// <summary>
         /// UsuarioTextBox control.

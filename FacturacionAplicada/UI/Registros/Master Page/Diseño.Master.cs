@@ -106,5 +106,25 @@ namespace FacturacionAplicada.UI.Registros.Master_Page
         {
             Server.Transfer("/UI/Consulta/ConsultaDeUsuarios.aspx");
         }
+
+        protected void cFacturacionButton_Click(object sender, EventArgs e)
+        {
+            Server.Transfer("/UI/Consulta/cFactura.aspx");
+        }
+
+        protected void cArticulosButton_Click(object sender, EventArgs e)
+        {
+            Server.Transfer("/UI/Consulta/cArticulos.aspx");
+        }
+
+        protected void cClientesButton_Click(object sender, EventArgs e)
+        {
+            Server.Transfer("/UI/Consulta/cClientes.aspx");
+        }
+
+        protected void EntradaButton_Click(object sender, EventArgs e)
+        {
+            Server.Transfer("/UI/Consulta/cEntradaArticulos.aspx");
+        }
     }
 }

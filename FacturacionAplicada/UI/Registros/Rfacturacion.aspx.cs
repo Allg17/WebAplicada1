@@ -23,57 +23,8 @@ namespace FacturacionAplicada.UI.Registros
                 Fecha.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 LlenarComboBoxArticulo();
                 LlenarComboBoxFacturaID();
-                DisableALL();
-
+               
                 EfectivoNumeric.Text = 0.ToString();
-
-
-                //dt.Columns.Add("ID");
-                //dt.Columns.Add("FacturaID");
-                //dt.Columns.Add("ProductoID");
-                //dt.Columns.Add("Cantidad");
-                //dt.Columns.Add("Precio");
-                //dt.Columns.Add("Descripcion");
-                //dt.Columns.Add("Importe");
-
-                //DataRow row = dt.NewRow();
-                //row["ID"] = 1;
-                //row["FacturaID"] = 1;
-                //row["ProductoID"] = 2;
-                //row["Cantidad"] = 30;
-                //row["Precio"] = 40;
-                //row["Descripcion"] = "Pepsi";
-                //row["Importe"] = 1400;
-                //dt.Rows.Add(row);
-
-                //DataRow row1 = dt.NewRow();
-                //row1["ID"] = 2;
-                //row1["FacturaID"] = 1;
-                //row1["ProductoID"] = 4;
-                //row1["Cantidad"] = 30;
-                //row1["Precio"] = 40;
-                //row1["Descripcion"] = "Coca Cola";
-                //row1["Importe"] = 1200;
-                //dt.Rows.Add(row1);
-                //dt.Rows.Add(3, 1, 3, 30, 40, "Papitas", 1200);
-                //dt.Rows.Add(3, 1, 3, 30, 40, "Papitas", 1200);
-                //dt.Rows.Add(3, 1, 3, 30, 40, "Papitas", 1200);
-                //dt.Rows.Add(3, 1, 3, 30, 40, "Papitas", 1200);
-                //dt.Rows.Add(3, 1, 3, 30, 40, "Papitas", 1200);
-                //dt.Rows.Add(3, 1, 3, 30, 40, "Papitas", 1200);
-                //dt.Rows.Add(3, 1, 3, 30, 40, "Papitas", 1200);
-                //dt.Rows.Add(3, 1, 3, 30, 40, "Papitas", 1200);
-                //dt.Rows.Add(3, 1, 3, 30, 40, "Papitas", 1200);
-                //dt.Rows.Add(3, 1, 3, 30, 40, "Papitas", 1200);
-                //dt.Rows.Add(3, 1, 3, 30, 40, "Papitas", 1200);
-
-                //List<DataRow> lista = new List<DataRow>();
-
-                //lista.Add(row);
-                //lista.Add(rows);
-
-
-
 
             }
 
@@ -107,38 +58,6 @@ namespace FacturacionAplicada.UI.Registros
             ArticuloDropDownList.DataBind();
         }
 
-        private void EnableALL()
-        {
-            FormadePagoDropDownList.Enabled = true;
-            CLienteDropDownList.Enabled = true;
-            DescripcionTextBox.Enabled = true;
-            Fecha.Enabled = true;
-            ArticuloDropDownList.Enabled = true;
-            CantidadTextBox.Enabled = true;
-            EfectivoNumeric.Enabled = true;
-            GuardarButton.Enabled = true;
-            CancelarButton.Enabled = true;
-            NuevoButton.Enabled = false;
-            FacturaDropDownList.Enabled = false;
-
-        }
-
-        private void DisableALL()
-        {
-            FormadePagoDropDownList.Enabled = false;
-            CLienteDropDownList.Enabled = false;
-            DescripcionTextBox.Enabled = false;
-            Fecha.Enabled = false;
-            ArticuloDropDownList.Enabled = false;
-            CantidadTextBox.Enabled = false;
-            EfectivoNumeric.Enabled = false;
-            GuardarButton.Enabled = false;
-            CancelarButton.Enabled = false;
-            NuevoButton.Enabled = true;
-            FacturaDropDownList.Enabled = true;
-            EliminarButton.Enabled = false;
-        }
-
         private void Limpiar()
         {
             FacturaDropDownList.Text = Condicion;
@@ -163,15 +82,8 @@ namespace FacturacionAplicada.UI.Registros
 
         protected void NuevoButton_Click(object sender, EventArgs e)
         {
-
-            EnableALL();
-        }
-
-        protected void CancelarButton_Click(object sender, EventArgs e)
-        {
             Limpiar();
-            DisableALL();
-
+            
         }
 
         protected void AgregarButton_Click(object sender, EventArgs e)
@@ -263,7 +175,7 @@ namespace FacturacionAplicada.UI.Registros
                     BLL.HerramientasBLL.DescontarProductos((List<FacturaDetalle>)ViewState["Detalle"]);
                     LlenarComboBoxFacturaID();
                     Limpiar();
-                    DisableALL();
+                    
                 }
                 else
                 {
@@ -278,7 +190,7 @@ namespace FacturacionAplicada.UI.Registros
                 {
 
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['success']('Modificado');", addScriptTags: true);
-                    DisableALL();
+                    
                     Limpiar();
                 }
                 else
@@ -368,13 +280,14 @@ namespace FacturacionAplicada.UI.Registros
             FacturaDetalleGridView.DataSource = ViewState["Detalle"];
             FacturaDetalleGridView.DataBind();
             EliminarButton.Enabled = true;
-            EnableALL();
+            
             if (billes.FormaDePago == "Credito")
                 EfectivoNumeric.Enabled = false;
         }
 
         protected void Eliminar_Click(object sender, EventArgs e)
         {
+
             GridViewRow row = FacturaDetalleGridView.SelectedRow;
             int id = Convert.ToInt32(FacturaDetalleGridView.DataKeys[row.RowIndex].Value);
             List<FacturaDetalle> lista = (List<FacturaDetalle>)ViewState["Detalle"];
@@ -410,6 +323,16 @@ namespace FacturacionAplicada.UI.Registros
         {
 
 
+        }
+
+        protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            if (args.Value.Equals(Condicion))
+            {
+                args.IsValid = false;
+            }
+            else
+                args.IsValid = true;
         }
     }
 }

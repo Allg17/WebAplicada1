@@ -10,7 +10,7 @@
 namespace FacturacionAplicada.UI.Consulta {
     
     
-    public partial class ConsultaDepartamento {
+    public partial class cFactura {
         
         /// <summary>
         /// FiltroComboBox control.

@@ -92,6 +92,10 @@
     <Content Include="Content\js\jquery.maskedinput.js" />
     <Content Include="DAL\Script.sql" />
     <Content Include="Login.aspx" />
+    <Content Include="UI\Consulta\cArticulos.aspx" />
+    <Content Include="UI\Consulta\cClientes.aspx" />
+    <Content Include="UI\Consulta\cEntradaArticulos.aspx" />
+    <Content Include="UI\Consulta\cFactura.aspx" />
     <Content Include="UI\Consulta\ConsultaDepartamento.aspx" />
     <Content Include="UI\Consulta\ConsultaDeUsuarios.aspx" />
     <Content Include="UI\Registros\Master Page\Diseño.Master" />
@@ -215,6 +219,34 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Consulta\cArticulos.aspx.cs">
+      <DependentUpon>cArticulos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\Consulta\cArticulos.aspx.designer.cs">
+      <DependentUpon>cArticulos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Consulta\cClientes.aspx.cs">
+      <DependentUpon>cClientes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\Consulta\cClientes.aspx.designer.cs">
+      <DependentUpon>cClientes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Consulta\cEntradaArticulos.aspx.cs">
+      <DependentUpon>cEntradaArticulos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\Consulta\cEntradaArticulos.aspx.designer.cs">
+      <DependentUpon>cEntradaArticulos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Consulta\cFactura.aspx.cs">
+      <DependentUpon>cFactura.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\Consulta\cFactura.aspx.designer.cs">
+      <DependentUpon>cFactura.aspx</DependentUpon>
     </Compile>
     <Compile Include="UI\Consulta\ConsultaDepartamento.aspx.cs">
       <DependentUpon>ConsultaDepartamento.aspx</DependentUpon>

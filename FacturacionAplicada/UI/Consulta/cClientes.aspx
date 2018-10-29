@@ -1,16 +1,11 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UI/Registros/Master Page/Diseño.Master" AutoEventWireup="true" CodeBehind="ConsultaDepartamento.aspx.cs" Inherits="FacturacionAplicada.UI.Consulta.ConsultaDepartamento" %>
-
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UI/Registros/Master Page/Diseño.Master" AutoEventWireup="true" CodeBehind="cClientes.aspx.cs" Inherits="FacturacionAplicada.UI.Consulta.cClientes" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
-
-
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
     <div class="container">
 
         <div class="page-header text-center">
-            <h1 style="font-size: x-large; font-family: 'Times New Roman', Times, serif; font: bold;"><ins>Consulta de Departamento</ins></h1>
+            <h1 style="font-size: x-large; font-family: 'Times New Roman', Times, serif; font: bold;"><ins>Consulta de Clientes</ins></h1>
         </div>
 
         <%--Filtro y Criterio--%>
@@ -19,8 +14,12 @@
                 <div class="col-md-4 col-sm-5 col-lg-2">
                     <asp:DropDownList ID="FiltroComboBox" runat="server" CssClass="form-control">
                         <asp:ListItem Text="Todo"></asp:ListItem>
-                        <asp:ListItem Text="ID"></asp:ListItem>
+                        <asp:ListItem Text="IdCliente"></asp:ListItem>
                         <asp:ListItem Text="Nombre"></asp:ListItem>
+                        <asp:ListItem Text="Direccion"></asp:ListItem>
+                        <asp:ListItem Text="Cedula"></asp:ListItem>
+                        <asp:ListItem Text="Telefono"></asp:ListItem>
+                   
                     </asp:DropDownList>
 
                 </div>
@@ -64,15 +63,21 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-md-12 col-sm-12">
-                    <asp:GridView ID="DatosGridView" AllowPaging="true" OnPageIndexChanging="DatosGridView_PageIndexChanging" PageSize="8" runat="server" Width="100%" class="table table-responsive text-center" AutoGenerateColumns="False"
+                    <asp:GridView ID="DatosGridView" AllowPaging="true" PageSize="8" OnPageIndexChanging="DatosGridView_PageIndexChanging" runat="server" Width="100%" class="table table-responsive text-center" AutoGenerateColumns="False"
                         CellPadding="4" ForeColor="#333333" GridLines="None">
                         <AlternatingRowStyle BackColor="White" />
 
                         <Columns>
 
 
-                            <asp:BoundField DataField="DepartamentoId" HeaderText="FacturaID" />
-                            <asp:BoundField DataField="Nombre" HeaderText="ProductoID" />
+
+                            <asp:BoundField DataField="IdCliente" HeaderText="Idproducto" />
+                            <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+                            <asp:BoundField DataField="Direccion" HeaderText="Direccion" />
+                            <asp:BoundField DataField="Cedula" HeaderText="Cedula" />
+                            <asp:BoundField DataField="Telefono" HeaderText="Telefono" />
+                            <asp:BoundField DataField="Fecha" HeaderText="Fecha"  DataFormatString="{0:MM-dd-yyyy}" />
+                            
 
 
                             <asp:TemplateField>
@@ -96,6 +101,4 @@
             </div>
         </div>
     </div>
-
-
 </asp:Content>

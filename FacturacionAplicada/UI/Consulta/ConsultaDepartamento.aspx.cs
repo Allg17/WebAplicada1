@@ -13,18 +13,17 @@ namespace FacturacionAplicada.UI.Consulta
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            AHoradateTimePicker1.Text = DateTime.Now.ToString("yyyy-MM-dd");
+            FInaldateTimePicker2.Text = DateTime.Now.ToString("yyyy-MM-dd");
         }
 
-        protected void FacturaDetalleGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            DatosGridView.DataSource = BLL.DepartamentoBLL.GetList(filtrar);
-            DatosGridView.PageIndex = e.NewPageIndex;
-            DatosGridView.DataBind();
-        }
+      
         Expression<Func<Departamento, bool>> filtrar = x => true;
+        bool paso = false;
         protected void BuscarButton_Click(object sender, EventArgs e)
         {
+            if (paso)
+                return;
             int id;
             switch (FiltroComboBox.SelectedIndex)
             {
@@ -53,6 +52,26 @@ namespace FacturacionAplicada.UI.Consulta
 
             DatosGridView.DataBind();
 
+        }
+
+        protected void DatosGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            DatosGridView.DataSource = BLL.DepartamentoBLL.GetList(filtrar);
+            DatosGridView.PageIndex = e.NewPageIndex;
+            DatosGridView.DataBind();
+        }
+
+        protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            int ejem = 0;
+            if (FiltroComboBox.SelectedIndex.Equals(1) && int.TryParse(CriterioTextBox.Text, out ejem) == false)
+            {
+                paso = true;
+                args.IsValid = false;
+                CustomValidator1.ErrorMessage = "Debe introducir un numero en el criterio";
+            }
+            else
+                args.IsValid = true;
         }
     }
 }
