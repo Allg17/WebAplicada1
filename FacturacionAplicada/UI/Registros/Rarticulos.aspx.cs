@@ -14,50 +14,15 @@ namespace FacturacionAplicada.UI.Registros
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            
-
             if (!Page.IsPostBack)
             {
                 LlenarComboBox();
-                DisableALL();
                 FechaDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 LlenarDepartamento();
             }
         }
 
-        private void EnableALL()
-        {
-            NuevoButton.Enabled = false;
-            EliminarButton.Enabled = false;
-            ArticuloDropDownList.Enabled = false;
-            DescripcionTextBox.Enabled = true;
-            PrecioTextBox.Enabled = true;
-            GananciaTextBox.Enabled = true;
-            CantidadTextBox.Enabled = true;
-            FechaDate.Enabled = true;
-            GuardarButton.Enabled = true;
-            CancelarButton.Enabled = true;
-            DepartamentoDropDownList.Enabled = true;
-            CostoNumeric.Enabled = true;
 
-        }
-
-        private void DisableALL()
-        {
-            NuevoButton.Enabled = true;
-            EliminarButton.Enabled = false;
-            ArticuloDropDownList.Enabled = true;
-            DescripcionTextBox.Enabled = false;
-            PrecioTextBox.Enabled = false;
-            GananciaTextBox.Enabled = false;
-            CantidadTextBox.Enabled = false;
-            FechaDate.Enabled = false;
-            GuardarButton.Enabled = false;
-            CancelarButton.Enabled = false;
-            DepartamentoDropDownList.Enabled = false;
-            CostoNumeric.Enabled = false;
-        }
 
         private void LlenarComboBox()
         {
@@ -88,10 +53,8 @@ namespace FacturacionAplicada.UI.Registros
             PrecioTextBox.Text = string.Empty;
             GananciaTextBox.Text = string.Empty;
             CantidadTextBox.Text = string.Empty;
-            FechaDate.Text = string.Empty;
+            FechaDate.Text = DateTime.Now.ToString("yyyy-MM-dd");
             CostoNumeric.Text = string.Empty;
-        
-            LimpiarErrores();
 
         }
 
@@ -125,27 +88,13 @@ namespace FacturacionAplicada.UI.Registros
 
         protected void NuevoButton_Click(object sender, EventArgs e)
         {
-           
-            Limpiar();
-            EnableALL();
-        }
 
-        protected void CancelarButton_Click(object sender, EventArgs e)
-        {
-           
-            DisableALL();
             Limpiar();
+
         }
 
         protected void GuardarButton_Click(object sender, EventArgs e)
         {
-            
-            LimpiarErrores();
-            if(Validar())
-            {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "ModalValidar", "$('#ModalValidar').modal();", true);
-                return;
-            }
 
             if (ArticuloDropDownList.Text.Equals(Condicion))
             {
@@ -153,7 +102,7 @@ namespace FacturacionAplicada.UI.Registros
                 {
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['success']('Guardado');", addScriptTags: true);
                     ArticuloDropDownList.DataSource = null;
-                    DisableALL();
+
                     Limpiar();
                 }
                 else
@@ -169,7 +118,7 @@ namespace FacturacionAplicada.UI.Registros
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['success']('Modificado');", addScriptTags: true);
                     ArticuloDropDownList.DataSource = null;
                     Limpiar();
-                    DisableALL();
+
 
                 }
                 else
@@ -183,26 +132,31 @@ namespace FacturacionAplicada.UI.Registros
 
         protected void EliminarButton_Click(object sender, EventArgs e)
         {
-           
-
-            int id = Convert.ToInt32(ArticuloDropDownList.SelectedValue);
-            if (BLL.ProductoBLL.Eliminar(id))
+            if (!ArticuloDropDownList.Text.Equals(Condicion))
             {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['info']('Eliminado');", addScriptTags: true);
-                ArticuloDropDownList.DataSource = null;
-                Limpiar();
-                DisableALL();
+                int id = Convert.ToInt32(ArticuloDropDownList.SelectedValue);
+                if (BLL.ProductoBLL.Eliminar(id))
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['info']('Eliminado');", addScriptTags: true);
+                    ArticuloDropDownList.DataSource = null;
+                    Limpiar();
 
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['error']('No se pudo eliminar');", addScriptTags: true);
+                }
             }
             else
             {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['danger']('No se pudo eliminar');", addScriptTags: true);
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['error']('No se pudo eliminar');", addScriptTags: true);
+                NuevoButton_Click(sender, e);
             }
         }
 
         protected void CostoNumeric_TextChanged(object sender, EventArgs e)
         {
-           
+
             if (!PrecioTextBox.Text.Equals(string.Empty))
             {
                 GananciaTextBox.Text = BLL.HerramientasBLL.CalcularGanancia(Convert.ToDecimal(PrecioTextBox.Text), Convert.ToDecimal(CostoNumeric.Text)).ToString();
@@ -211,7 +165,7 @@ namespace FacturacionAplicada.UI.Registros
 
         protected void PrecioTextBox_TextChanged(object sender, EventArgs e)
         {
-           
+
             if (!CostoNumeric.Text.Equals(string.Empty))
             {
                 GananciaTextBox.Text = BLL.HerramientasBLL.CalcularGanancia(Convert.ToDecimal(PrecioTextBox.Text), Convert.ToDecimal(CostoNumeric.Text)).ToString();
@@ -220,70 +174,33 @@ namespace FacturacionAplicada.UI.Registros
 
         protected void ArticuloDropDownList_TextChanged(object sender, EventArgs e)
         {
-           
-            int id = Convert.ToInt32(ArticuloDropDownList.SelectedValue);
+            if (!ArticuloDropDownList.Text.Equals(Condicion))
+            {
+                int id = Convert.ToInt32(ArticuloDropDownList.SelectedValue);
+                var item = BLL.ProductoBLL.Buscar(id);
+                DescripcionTextBox.Text = item.Descripcion;
+                DepartamentoDropDownList.SelectedIndex = item.DepartamentoId;
+                PrecioTextBox.Text = item.Precio.ToString();
+                CostoNumeric.Text = item.Costo.ToString();
+                GananciaTextBox.Text = Convert.ToInt32(item.Ganancia).ToString();
+                CantidadTextBox.Text = item.Cantidad.ToString();
+                FechaDate.Text = item.Fecha.ToString("yyyy-MM-dd");
 
-            var item = BLL.ProductoBLL.Buscar(id);
-            DescripcionTextBox.Text = item.Descripcion;
-            DepartamentoDropDownList.SelectedIndex = item.DepartamentoId;
-            PrecioTextBox.Text = item.Precio.ToString();
-            CostoNumeric.Text = item.Costo.ToString();
-            GananciaTextBox.Text = Convert.ToInt32(item.Ganancia).ToString();
-            CantidadTextBox.Text = item.Cantidad.ToString();
-            FechaDate.Text = item.Fecha.ToString("yyyy-MM-dd");
-            EnableALL();
-            EliminarButton.Enabled = true;
-
-
+                EliminarButton.Enabled = true;
+            }
+            else
+                NuevoButton_Click(sender, e);
 
         }
 
-        private bool Validar()
+        protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
         {
-            bool paso = false;
-            if(string.IsNullOrWhiteSpace(DescripcionTextBox.Text))
+            if (args.Value.Equals(Condicion))
             {
-                DescripcionTextBox.BackColor = System.Drawing.ColorTranslator.FromHtml("#F50303");
-                DescripcionTextBox.ToolTip = "No puede estar vacio, Ingrese una Descripcion";
-                paso = true;
+                args.IsValid = false;
             }
-            if(string.IsNullOrWhiteSpace(PrecioTextBox.Text))
-            {
-                PrecioTextBox.BackColor = System.Drawing.ColorTranslator.FromHtml("#F50303");
-                PrecioTextBox.ToolTip = "No puede estar vacio, Ingrese un presio";
-                paso = true;
-            }
-            if(string.IsNullOrWhiteSpace(CostoNumeric.Text))
-            {
-                CostoNumeric.BackColor = System.Drawing.ColorTranslator.FromHtml("#F50303");
-                CostoNumeric.ToolTip = "No puede estar vacio, Ingrese el Costo del Articulo";
-                paso = true;
-            }
-            if(string.IsNullOrWhiteSpace(FechaDate.Text))
-            {
-                FechaDate.BackColor = System.Drawing.ColorTranslator.FromHtml("#F50303");
-                FechaDate.ToolTip = "No puede estar vacio, Ingrese la fecha";
-                paso = true;
-            }
-            if(DepartamentoDropDownList.Text.Equals(Condicion))
-            {
-                DepartamentoDropDownList.BackColor = System.Drawing.ColorTranslator.FromHtml("#F50303");
-                DepartamentoDropDownList.ToolTip = "No puede estar seleccionado este Campo, Ingrese un Departamento";
-                paso = true;
-            }
-            return paso;
+            else
+                args.IsValid = true;
         }
-
-        private void LimpiarErrores()
-        {
-            DescripcionTextBox.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFFFFF");
-            PrecioTextBox.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFFFFF");
-            DepartamentoDropDownList.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFFFFF");
-          
-            CostoNumeric.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFFFFF");
-            FechaDate.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFFFFF");
-        }
-
-    
     }
 }

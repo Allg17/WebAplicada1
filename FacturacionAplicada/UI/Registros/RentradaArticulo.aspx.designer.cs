@@ -22,6 +22,15 @@ namespace FacturacionAplicada.UI.Registros {
         protected global::System.Web.UI.WebControls.DropDownList EntradaDropDownList;
         
         /// <summary>
+        /// CustomValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator1;
+        
+        /// <summary>
         /// Fecha control.
         /// </summary>
         /// <remarks>
@@ -76,6 +85,15 @@ namespace FacturacionAplicada.UI.Registros {
         protected global::System.Web.UI.WebControls.RangeValidator RangeValidator1;
         
         /// <summary>
+        /// RequiredFieldValidator3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
+        
+        /// <summary>
         /// NuevoButton control.
         /// </summary>
         /// <remarks>
@@ -101,14 +119,5 @@ namespace FacturacionAplicada.UI.Registros {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button EliminarButton;
-        
-        /// <summary>
-        /// CancelarButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button CancelarButton;
     }
 }

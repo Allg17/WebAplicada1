@@ -15,38 +15,14 @@ namespace FacturacionAplicada.UI.Registros
         {
             if (!Page.IsPostBack)
             {
-                EnableFalse();
+
                 Tooltips();
                 LlenaArticuloComboBox();
                 LlenarIDComboBox();
                 Fecha.Text = DateTime.Now.ToString("yyyy-MM-dd");
             }
 
-          
-        }
 
-        private void EnableFalse()
-        {
-            NuevoButton.Enabled = true;
-            EntradaDropDownList.Enabled = true;
-            GuardarButton.Enabled = false;
-            EliminarButton.Enabled = false;
-            CancelarButton.Enabled = false;
-            Fecha.ReadOnly = true;
-            ArticuloDropDownList.Enabled = false;
-            CantidadTextBox.ReadOnly = true;
-        }
-
-        private void EnableTrue()
-        {
-            NuevoButton.Enabled = false;
-
-            GuardarButton.Enabled = true;
-
-            CancelarButton.Enabled = true;
-            Fecha.ReadOnly = false;
-            ArticuloDropDownList.Enabled = true;
-            CantidadTextBox.ReadOnly = false;
         }
 
         private void Tooltips()
@@ -59,20 +35,20 @@ namespace FacturacionAplicada.UI.Registros
         private void Limpiar()
         {
             EntradaDropDownList.Text = "Select One";
-            Fecha.Text = DateTime.Now.ToString();
-           
+            Fecha.Text = DateTime.Now.ToString("yyyy-MM-dd");
+
             CantidadTextBox.Text = string.Empty;
         }
 
         protected void NuevoButton_Click(object sender, EventArgs e)
         {
-            if (!BLL.HerramientasBLL.Login)
-            {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "ModalLogIn", "$('#ModalLogIn').modal();", true);
-                return;
-            }
-            EnableTrue();
+            //if (!BLL.HerramientasBLL.Login)
+            //{
+            //    ScriptManager.RegisterStartupScript(this, this.GetType(), "ModalLogIn", "$('#ModalLogIn').modal();", true);
+            //    return;
+            //}
 
+            Limpiar();
         }
 
         private void LlenaArticuloComboBox()
@@ -102,21 +78,19 @@ namespace FacturacionAplicada.UI.Registros
 
         protected void GuardarButton_Click(object sender, EventArgs e)
         {
-           
-          
 
             if (EntradaDropDownList.Text == Condicion)
             {
                 if (BLL.EntradaArticuloBLL.Guardar(LlenaClase()))
                 {
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['success']('Guardado');", addScriptTags: true);
-                    EnableFalse();
+
                     Limpiar();
                     LlenarIDComboBox();
                 }
                 else
                 {
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['danger']('No se pudo Guardar');", addScriptTags: true);
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['error']('No se pudo Guardar');", addScriptTags: true);
                     return;
                 }
 
@@ -126,13 +100,13 @@ namespace FacturacionAplicada.UI.Registros
                 if (BLL.EntradaArticuloBLL.Modificar(LlenaClase()))
                 {
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['success']('Modificado');", addScriptTags: true);
-                    EnableFalse();
+
                     Limpiar();
                     return;
                 }
                 else
                 {
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['danger']('No se pudo Modificar');", addScriptTags: true);
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['error']('No se pudo Modificar');", addScriptTags: true);
                     return;
                 }
             }
@@ -154,45 +128,55 @@ namespace FacturacionAplicada.UI.Registros
             return entrada;
         }
 
-        protected void CancelarButton_Click(object sender, EventArgs e)
-        {
-           
-            Limpiar();
-            EnableFalse();
-        }
-
         protected void EliminarButton_Click(object sender, EventArgs e)
         {
-           
-            int id = Convert.ToInt32(EntradaDropDownList.SelectedValue);
-            if (BLL.EntradaArticuloBLL.Eliminar(id))
+            if (EntradaDropDownList.Text != Condicion)
             {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['info']('Eliminado');", addScriptTags: true);
-                LlenarIDComboBox();
-                Limpiar();
-                EnableFalse();
+                int id = Convert.ToInt32(EntradaDropDownList.SelectedValue);
+                if (BLL.EntradaArticuloBLL.Eliminar(id))
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['info']('Eliminado');", addScriptTags: true);
+                    LlenarIDComboBox();
+                    Limpiar();
 
+
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['error']('No se pudo eliminar');", addScriptTags: true);
+                }
             }
             else
             {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['danger']('No se pudo eliminar');", addScriptTags: true);
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['error']('No se pudo eliminar');", addScriptTags: true);
+                NuevoButton_Click(sender, e);
             }
         }
 
         protected void EntradaDropDownList_TextChanged(object sender, EventArgs e)
         {
-            
 
-            int id = Convert.ToInt32(EntradaDropDownList.SelectedValue);
-            var item = BLL.EntradaArticuloBLL.Buscar(id);
-            Fecha.Text = item.Fecha.ToString("yyyy-MM-dd");
-            ArticuloDropDownList.SelectedIndex = item.ArticuloID;
-            CantidadTextBox.Text = item.Cantidad.ToString();
+            if (EntradaDropDownList.Text != Condicion)
+            {
+                int id = Convert.ToInt32(EntradaDropDownList.SelectedValue);
+                var item = BLL.EntradaArticuloBLL.Buscar(id);
+                Fecha.Text = item.Fecha.ToString("yyyy-MM-dd");
+                ArticuloDropDownList.SelectedIndex = item.ArticuloID;
+                CantidadTextBox.Text = item.Cantidad.ToString();
 
-            EnableTrue();
-            EliminarButton.Enabled = true;
+            }
+            else
+                NuevoButton_Click(sender, e);
         }
 
-       
+        protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            if (args.Value.Equals(Condicion))
+            {
+                args.IsValid = false;
+            }
+            else
+                args.IsValid = true;
+        }
     }
 }

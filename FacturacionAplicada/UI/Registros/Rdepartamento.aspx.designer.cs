@@ -22,6 +22,24 @@ namespace FacturacionAplicada.UI.Registros {
         protected global::System.Web.UI.WebControls.DropDownList DepartamentoDropDownList;
         
         /// <summary>
+        /// CustomValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator1;
+        
+        /// <summary>
+        /// CustomValidator12 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator12;
+        
+        /// <summary>
         /// NombreTextBox control.
         /// </summary>
         /// <remarks>
@@ -65,14 +83,5 @@ namespace FacturacionAplicada.UI.Registros {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button EliminarButton;
-        
-        /// <summary>
-        /// CancelarButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button CancelarButton;
     }
 }
