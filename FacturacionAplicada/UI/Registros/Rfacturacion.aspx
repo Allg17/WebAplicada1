@@ -7,21 +7,31 @@
         <div class="page-header text-center">
             <h1 style="font-size: x-large; font-family: 'Times New Roman', Times, serif; font: bold;"><ins>Facturacion</ins></h1>
         </div>
+
+
         <%--id Dropdown y fecha--%>
         <div class="form-group">
             <div class="row">
                 <div class="col-sm-3 col-md-2 offset-md-3">
                     <asp:DropDownList ID="FacturaDropDownList" OnTextChanged="FacturaDropDownList_TextChanged" AutoPostBack="true" AppendDataBoundItems="true" CssClass="form-control" runat="server"></asp:DropDownList>
                     <asp:CustomValidator ID="CustomValidator1" ControlToValidate="FacturaDropDownList" OnServerValidate="CustomValidator1_ServerValidate" CssClass="ErrorMessage" ValidationGroup="Eliminar" runat="server" ErrorMessage="Seleccione un ID"></asp:CustomValidator>
+
                 </div>
                 <div class=" col-sm-3 col-md-2 offset-md-2">
-                    <asp:TextBox ID="Fecha" type="date" CssClass="form-control" runat="server"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate-="Fecha" ValidationGroup="Guardar" CssClass="ErrorMessage" runat="server" ErrorMessage="Seleccione una Fecha"></asp:RequiredFieldValidator>
+                    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                        <ContentTemplate>
+                            <fieldset>
+                                <asp:TextBox ID="Fecha" type="date" CssClass="form-control" runat="server"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate-="Fecha" ValidationGroup="Guardar" CssClass="ErrorMessage" runat="server" ErrorMessage="Seleccione una Fecha"></asp:RequiredFieldValidator>
+                            </fieldset>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
                 </div>
+
             </div>
         </div>
 
-        <%--Tipo Factura DropDown--%>
+        <%--Tipo Factura o forma de pago DropDown--%>
         <div class="form-group">
             <div class="row">
                 <div class="col-sm-4 col-md-2 offset-md-3">
@@ -37,10 +47,15 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-sm-4 col-md-2 offset-md-3">
-
-                    <asp:DropDownList ID="CLienteDropDownList" CssClass="form-control " runat="server" aria-describedby="NombreClienteTextBox">
-                    </asp:DropDownList>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="CLienteDropDownList" ValidationGroup="Guardar" CssClass="ErrorMessage" runat="server" ErrorMessage="Seleccione un Cliente"></asp:RequiredFieldValidator>
+                    <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                        <ContentTemplate>
+                            <fieldset>
+                                <asp:DropDownList ID="CLienteDropDownList" CssClass="form-control " runat="server" aria-describedby="NombreClienteTextBox">
+                                </asp:DropDownList>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="CLienteDropDownList" ValidationGroup="Guardar" CssClass="ErrorMessage" runat="server" ErrorMessage="Seleccione un Cliente"></asp:RequiredFieldValidator>
+                            </fieldset>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
                 </div>
             </div>
         </div>
@@ -59,13 +74,14 @@
             <div class="row">
                 <div class="col-sm-4 col-md-4  offset-md-3 ">
                     <div class="input-group md-3">
+
                         <asp:DropDownList ID="ArticuloDropDownList" OnTextChanged="ArticuloDropDownList_TextChanged" AppendDataBoundItems="true" AutoPostBack="true" ontextAppendDataBoundItems="true" CssClass="form-control  text-center" runat="server"></asp:DropDownList>
                         <div class="input-group-append">
                             <asp:TextBox ID="PrecioArticuloTextBox" CssClass="form-control  text-center" runat="server" Enabled="false" placeholder="Precio Articulo" aria-label="Precios Articulo"></asp:TextBox>
                         </div>
                     </div>
                     <%--Validator--%>
-                    <asp:CustomValidator ID="ArticuloDropDownListCustomValidator" ControlToValidate="ArticuloDropDownList" CssClass="ErrorMessage" ValidationGroup="Agregar" runat="server" ErrorMessage="Seleccione un Articulo"></asp:CustomValidator>
+                    <asp:CustomValidator ID="CustomValidator2" ControlToValidate="ArticuloDropDownList" CssClass="ErrorMessage" ValidationGroup="Agregar" OnServerValidate="CustomValidator2_ServerValidate" runat="server" ErrorMessage="CustomValidator"></asp:CustomValidator>
                 </div>
             </div>
         </div>
@@ -93,8 +109,8 @@
             <div class="row">
                 <div class="col-sm-4 col-md-8 offset-md-3">
 
-                    <asp:GridView ID="FacturaDetalleGridView" AllowPaging="true" AutoGenerateEditButton="true" OnRowEditing="FacturaDetalleGridView_RowEditing" PageSize="5" OnPageIndexChanging="FacturaDetalleGridView_PageIndexChanging" runat="server" Width="100%" class="table table-responsive text-center" AutoGenerateColumns="False"
-                        CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ID,FacturaId">
+                    <asp:GridView ID="FacturaDetalleGridView" AllowPaging="true" PageSize="5" OnPageIndexChanging="FacturaDetalleGridView_PageIndexChanging" runat="server" Width="100%" class="table table-striped table-hover table-responsive-lg" AutoGenerateColumns="False"
+                        CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="ID">
                         <AlternatingRowStyle BackColor="White" />
 
                         <Columns>
@@ -114,8 +130,8 @@
                                         Text="Eliminar" OnClick="EnviarAlModalEliminarButton_Click" />
 
 
-                                    <asp:Button ID="Modificar" CommandName="Select" CssClass="btn btn-secondary form-control" runat="server"
-                                        Text="Modificar" OnClick="Modificar_Click" />
+                                    <asp:Button ID="EnviarAlModalModificar" CommandName="Select" CssClass="btn btn-secondary form-control" runat="server"
+                                        Text="Modificar" OnClick="EnviarAlModalModificar_Click" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
@@ -142,7 +158,9 @@
                 <div class="col-sm-4 col-md-5  offset-md-3">
                     <%--Efectivo--%>
                     <div class="input-group mb-3">
-                        <asp:TextBox ID="EfectivoNumeric" OnTextChanged="EfectivoNumeric_TextChanged" AutoPostBack="true" type="number" CssClass="form-control " Style="font-size: 90%" runat="server" aria-label="Efectivo" placeholder="Efectivo"></asp:TextBox>
+
+                        <asp:TextBox ID="EfectivoNumeric" Text="0" OnTextChanged="EfectivoNumeric_TextChanged" AutoPostBack="true" type="number" CssClass="form-control " Style="font-size: 90%" runat="server" aria-label="Efectivo" placeholder="Efectivo"></asp:TextBox>
+
                         <div class="input-group-append">
                             <%--Devuelta--%>
                             <div class="input-group mb-3">
@@ -156,8 +174,12 @@
 
                     </div>
                     <%--validator--%>
-                    <asp:CustomValidator ID="EfectivoCustomValidator" ValidationGroup="Guardar" ControlToValidate="EfectivoNumeric" CssClass="ErrorMessage" runat="server" ErrorMessage="Ingrese el Efectivo"></asp:CustomValidator>
+                    <asp:CustomValidator ID="EfectivoCustomValidator" ValidationGroup="Guardar" OnServerValidate="EfectivoCustomValidator_ServerValidate" ControlToValidate="EfectivoNumeric" CssClass="ErrorMessage" runat="server" ErrorMessage="Ingrese el Efectivo"></asp:CustomValidator>
+                    <asp:CustomValidator ID="DevueltaCustomValidator" ValidationGroup="Guardar" OnServerValidate="DevueltaCustomValidator_ServerValidate" ControlToValidate="DevueltaTextBox" CssClass="ErrorMessage" runat="server" ErrorMessage="Arreglar el efectivo ingresado y Verificque con el total"></asp:CustomValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ValidationGroup="Guardar" runat="server" ControlToValidate="MontoTextBox" CssClass="ErrorMessage" ErrorMessage="No se ha hecho ninguna seleccion de Articulos"></asp:RequiredFieldValidator>
+
                 </div>
+
             </div>
         </div>
         <%--Botones--%>
@@ -167,10 +189,10 @@
                     <asp:Button ID="NuevoButton" runat="server" OnClick="NuevoButton_Click" Text="Nuevo" CssClass="form-control btn btn-primary" />
                 </div>
                 <div class=" col-sm-4 col-md-2 ">
-                    <asp:Button ID="GuardarButton" OnClick="GuardarButton_Click" runat="server" Text="Guardar" CssClass="form-control btn btn-success" />
+                    <asp:Button ID="GuardarButton" ValidationGroup="Guardar" OnClick="GuardarButton_Click" runat="server" Text="Guardar" CssClass="form-control btn btn-success" />
                 </div>
                 <div class=" col-sm-4 col-md-2  ">
-                    <asp:Button ID="EliminarButton" runat="server" Text="Eliminar" CssClass="form-control btn btn-danger" />
+                    <asp:Button ID="EliminarButton" ValidationGroup="Eliminar" runat="server" Text="Eliminar" CssClass="form-control btn btn-danger" />
                 </div>
             </div>
         </div>
@@ -196,5 +218,25 @@
             </div>
         </div>
 
+        <!--Modal de confirmacion de Modificar-->
+        <div class="modal" id="ModalModificar">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content ">
+                    <div class="modal-header bg-danger">
+                        <h5 class="modal-title">¡Atencion!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Estas seguro de Modificar este Articulo?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <asp:Button ID="ModificarArticuloButton" runat="server" CssClass="btn btn-danger" Text="Si" OnClick="ModificarArticuloButton_Click" />
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </asp:Content>

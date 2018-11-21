@@ -31,6 +31,15 @@ namespace FacturacionAplicada.UI.Registros {
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidator1;
         
         /// <summary>
+        /// UpdatePanel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
+        /// <summary>
         /// Fecha control.
         /// </summary>
         /// <remarks>
@@ -56,6 +65,15 @@ namespace FacturacionAplicada.UI.Registros {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList FormadePagoDropDownList;
+        
+        /// <summary>
+        /// UpdatePanel4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel4;
         
         /// <summary>
         /// CLienteDropDownList control.
@@ -103,13 +121,13 @@ namespace FacturacionAplicada.UI.Registros {
         protected global::System.Web.UI.WebControls.TextBox PrecioArticuloTextBox;
         
         /// <summary>
-        /// ArticuloDropDownListCustomValidator control.
+        /// CustomValidator2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator ArticuloDropDownListCustomValidator;
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator2;
         
         /// <summary>
         /// CantidadTextBox control.
@@ -193,6 +211,24 @@ namespace FacturacionAplicada.UI.Registros {
         protected global::System.Web.UI.WebControls.CustomValidator EfectivoCustomValidator;
         
         /// <summary>
+        /// DevueltaCustomValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator DevueltaCustomValidator;
+        
+        /// <summary>
+        /// RequiredFieldValidator4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
+        
+        /// <summary>
         /// NuevoButton control.
         /// </summary>
         /// <remarks>
@@ -227,5 +263,14 @@ namespace FacturacionAplicada.UI.Registros {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Eliminar;
+        
+        /// <summary>
+        /// ModificarArticuloButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ModificarArticuloButton;
     }
 }

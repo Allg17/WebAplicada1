@@ -13,21 +13,34 @@ namespace FacturacionAplicada.UI.Registros
     {
         DataTable dt = new DataTable();
         Factura billes = new Factura();
+        bool paso = true;
         string Condicion = "Seleccione Para Buscar";
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
+                ViewState["ModificarArticuo"] = new FacturaDetalle();
                 LlenaComboBoxCliente();
                 Fecha.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 LlenarComboBoxArticulo();
                 LlenarComboBoxFacturaID();
-               
-                EfectivoNumeric.Text = 0.ToString();
 
+                EfectivoNumeric.Text = 0.ToString();
+                Disable();
+                EfectivoNumeric.Enabled = false;
             }
 
+        }
+
+        private void Disable()
+        {
+            CantidadTextBox.Enabled = false;
+            AgregarButton.Enabled = false;
+            ArticuloDropDownList.Text = Condicion;
+            PrecioArticuloTextBox.Text = string.Empty;
+            CantidadTextBox.Text = string.Empty;
+            ImporteTextBox.Text = string.Empty;
         }
 
         protected void FacturaDetalleGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -63,6 +76,7 @@ namespace FacturacionAplicada.UI.Registros
             FacturaDropDownList.Text = Condicion;
             Fecha.Text = DateTime.Now.ToString("yyyy-MM-dd");
 
+            EfectivoNumeric.Enabled = false;
             DescripcionTextBox.Text = string.Empty;
             CantidadTextBox.Text = string.Empty;
             ArticuloDropDownList.Text = Condicion;
@@ -73,6 +87,8 @@ namespace FacturacionAplicada.UI.Registros
             EfectivoNumeric.Text = string.Empty;
             FacturaDetalleGridView.DataSource = null;
             ViewState["Detalle"] = null;
+            CantidadTextBox.Enabled = false;
+            AgregarButton.Enabled = false;
         }
 
         private void AsignarDevuelta()
@@ -83,12 +99,12 @@ namespace FacturacionAplicada.UI.Registros
         protected void NuevoButton_Click(object sender, EventArgs e)
         {
             Limpiar();
-            
+
         }
 
         protected void AgregarButton_Click(object sender, EventArgs e)
         {
-
+            EfectivoNumeric.Enabled = true;
 
             if (FacturaDetalleGridView.Rows.Count != 0)
             {
@@ -97,13 +113,19 @@ namespace FacturacionAplicada.UI.Registros
 
             if (FacturaDropDownList.Text != Condicion)
             {
-                if(billes.BillDetalle.Exists(x=>x.ProductoId.Equals(Convert.ToInt32(ArticuloDropDownList.SelectedValue))))
+                if (billes.BillDetalle.Exists(x => x.ProductoId.Equals(Convert.ToInt32(ArticuloDropDownList.SelectedValue))))
                 {
-                   var articulo =  billes.BillDetalle.Where(x => x.ProductoId.Equals(Convert.ToInt32(ArticuloDropDownList.SelectedValue)));
+                    var articulo = billes.BillDetalle.Where(x => x.ProductoId.Equals(Convert.ToInt32(ArticuloDropDownList.SelectedValue)));
 
                 }
 
-                billes.BillDetalle.Add(new FacturaDetalle(0, Convert.ToInt32(FacturaDropDownList.SelectedValue), Convert.ToInt32(ArticuloDropDownList.SelectedValue), Convert.ToInt32(CantidadTextBox.Text), Convert.ToDecimal(PrecioArticuloTextBox.Text), ArticuloDropDownList.SelectedItem.Text, Convert.ToDecimal(ImporteTextBox.Text)));
+                if (((FacturaDetalle)ViewState["ModificarArticuo"]).Id !=0)
+                {
+                    billes.BillDetalle.Add(new FacturaDetalle(((FacturaDetalle)ViewState["ModificarArticuo"]).Id, Convert.ToInt32(FacturaDropDownList.SelectedValue), Convert.ToInt32(ArticuloDropDownList.SelectedValue), Convert.ToInt32(CantidadTextBox.Text), Convert.ToDecimal(PrecioArticuloTextBox.Text), ArticuloDropDownList.SelectedItem.Text, Convert.ToDecimal(ImporteTextBox.Text)));
+                }
+                else
+                    billes.BillDetalle.Add(new FacturaDetalle(0, Convert.ToInt32(FacturaDropDownList.SelectedValue), Convert.ToInt32(ArticuloDropDownList.SelectedValue), Convert.ToInt32(CantidadTextBox.Text), Convert.ToDecimal(PrecioArticuloTextBox.Text), ArticuloDropDownList.SelectedItem.Text, Convert.ToDecimal(ImporteTextBox.Text)));
+                ViewState["ModificarArticuo"] = new FacturaDetalle();
             }
             else
                 billes.BillDetalle.Add(new FacturaDetalle(0, 0, Convert.ToInt32(ArticuloDropDownList.SelectedValue), Convert.ToInt32(CantidadTextBox.Text), Convert.ToDecimal(PrecioArticuloTextBox.Text), ArticuloDropDownList.SelectedItem.Text, Convert.ToDecimal(ImporteTextBox.Text)));
@@ -115,9 +137,12 @@ namespace FacturacionAplicada.UI.Registros
             FacturaDetalleGridView.DataSource = ViewState["Detalle"];
             FacturaDetalleGridView.DataBind();
 
-            PrecioArticuloTextBox.Text = string.Empty;
-            CantidadTextBox.Text = string.Empty;
 
+            Disable();
+            if (FormadePagoDropDownList.Text.Equals("Contado") && ((List<FacturaDetalle>)ViewState["Detalle"]).Count > 0)
+                EfectivoNumeric.Enabled = true;
+            else
+                EfectivoNumeric.Enabled = false;
 
         }
 
@@ -138,6 +163,8 @@ namespace FacturacionAplicada.UI.Registros
             {
                 int id = Convert.ToInt32(ArticuloDropDownList.SelectedValue);
                 PrecioArticuloTextBox.Text = BLL.ProductoBLL.Buscar(id).Precio.ToString();
+                CantidadTextBox.Enabled = true;
+                AgregarButton.Enabled = true;
             }
 
         }
@@ -154,52 +181,56 @@ namespace FacturacionAplicada.UI.Registros
 
         protected void FormadePagoDropDownList_TextChanged(object sender, EventArgs e)
         {
-            if (FormadePagoDropDownList.SelectedIndex == 1)
-                EfectivoNumeric.Enabled = false;
-            else
+            if (FormadePagoDropDownList.Text.Equals("Contado") && ((List<FacturaDetalle>)ViewState["Detalle"]).Count > 0)
                 EfectivoNumeric.Enabled = true;
+            else
+                EfectivoNumeric.Enabled = false;
         }
 
         protected void GuardarButton_Click(object sender, EventArgs e)
         {
-            if (FacturaDropDownList.Text.Equals(Condicion))
+            if (paso == false)
             {
-                if (!BLL.HerramientasBLL.Login)
+
+
+                if (FacturaDropDownList.Text.Equals(Condicion))
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "ModalLogIn", "$('#ModalLogIn').modal();", true);
-                    return;
-                }
-                if (BLL.FacturacionBLL.Guardar(LlenaClase()))
-                {
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['success']('Guardado');", addScriptTags: true);
-                    BLL.HerramientasBLL.DescontarProductos((List<FacturaDetalle>)ViewState["Detalle"]);
-                    LlenarComboBoxFacturaID();
-                    Limpiar();
-                    
+                    //if (!BLL.HerramientasBLL.Login)
+                    //{
+                    //    ScriptManager.RegisterStartupScript(this, this.GetType(), "ModalLogIn", "$('#ModalLogIn').modal();", true);
+                    //    return;
+                    //}
+                    if (BLL.FacturacionBLL.Guardar(LlenaClase()))
+                    {
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['success']('Guardado');", addScriptTags: true);
+                        BLL.HerramientasBLL.DescontarProductos((List<FacturaDetalle>)ViewState["Detalle"]);
+                        LlenarComboBoxFacturaID();
+                        Limpiar();
+
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['danger']('No se pudo Guardar');", addScriptTags: true);
+                        return;
+                    }
                 }
                 else
                 {
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['danger']('No se pudo Guardar');", addScriptTags: true);
-                    return;
+
+                    if (BLL.FacturacionBLL.Modificar(LlenaClase()))
+                    {
+
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['success']('Modificado');", addScriptTags: true);
+
+                        Limpiar();
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['danger']('No se pudo Modificar');", addScriptTags: true);
+                        return;
+                    }
                 }
             }
-            else
-            {
-
-                if (BLL.FacturacionBLL.Modificar(LlenaClase()))
-                {
-
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['success']('Modificado');", addScriptTags: true);
-                    
-                    Limpiar();
-                }
-                else
-                {
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['danger']('No se pudo Modificar');", addScriptTags: true);
-                    return;
-                }
-            }
-
 
         }
 
@@ -266,7 +297,7 @@ namespace FacturacionAplicada.UI.Registros
             billes = BLL.FacturacionBLL.Buscar(id);
 
             FormadePagoDropDownList.Text = billes.FormaDePago;
-            CLienteDropDownList.SelectedIndex = billes.ClienteId;
+            CLienteDropDownList.SelectedValue = billes.ClienteId.ToString();
             DescripcionTextBox.Text = billes.Descripcion;
             MontoTextBox.Text = billes.Monto.ToString();
             EfectivoNumeric.Text = billes.EfectivoRecibido.ToString();
@@ -280,7 +311,7 @@ namespace FacturacionAplicada.UI.Registros
             FacturaDetalleGridView.DataSource = ViewState["Detalle"];
             FacturaDetalleGridView.DataBind();
             EliminarButton.Enabled = true;
-            
+
             if (billes.FormaDePago == "Credito")
                 EfectivoNumeric.Enabled = false;
         }
@@ -289,10 +320,8 @@ namespace FacturacionAplicada.UI.Registros
         {
 
             GridViewRow row = FacturaDetalleGridView.SelectedRow;
-            int id = Convert.ToInt32(FacturaDetalleGridView.DataKeys[row.RowIndex].Value);
-            List<FacturaDetalle> lista = (List<FacturaDetalle>)ViewState["Detalle"];
-            lista.RemoveAll(x => x.Id == id);
-            ViewState["Detalle"] = lista;
+            //int id = Convert.ToInt32(FacturaDetalleGridView.DataKeys[row.RowIndex].Value);
+            ((List<FacturaDetalle>)ViewState["Detalle"]).RemoveAt(row.RowIndex);
             FacturaDetalleGridView.DataSource = ViewState["Detalle"];
             FacturaDetalleGridView.DataBind();
             CalcularMonto();
@@ -304,27 +333,6 @@ namespace FacturacionAplicada.UI.Registros
             ScriptManager.RegisterStartupScript(this, this.GetType(), "ModalEliminar", "$('#ModalEliminar').modal();", true);
         }
 
-        protected void Modificar_Click(object sender, EventArgs e)
-        {
-            GridViewRow row = FacturaDetalleGridView.SelectedRow;
-            int id = Convert.ToInt32(FacturaDetalleGridView.DataKeys[row.RowIndex].Value);
-            List<FacturaDetalle> lista = (List<FacturaDetalle>)ViewState["Detalle"];
-
-
-            var Articulo = lista.Where(X => X.Id.Equals(id)).ElementAt(0);
-            ArticuloDropDownList.SelectedIndex = Articulo.ProductoId;
-            PrecioArticuloTextBox.Text = Articulo.Precio.ToString();
-            CantidadTextBox.Text = Articulo.Cantidad.ToString();
-            ImporteTextBox.Text = BLL.HerramientasBLL.Importedemas(Convert.ToDecimal(CantidadTextBox.Text), Convert.ToDecimal(PrecioArticuloTextBox.Text)).ToString();
-
-        }
-
-        protected void FacturaDetalleGridView_RowEditing(object sender, GridViewEditEventArgs e)
-        {
-
-
-        }
-
         protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
         {
             if (args.Value.Equals(Condicion))
@@ -333,6 +341,68 @@ namespace FacturacionAplicada.UI.Registros
             }
             else
                 args.IsValid = true;
+        }
+
+        protected void CustomValidator2_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            if (args.Value.Equals(Condicion))
+            {
+                args.IsValid = false;
+            }
+            else
+                args.IsValid = true;
+        }
+
+        protected void EfectivoCustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            if (FormadePagoDropDownList.Text.Equals("Contado") && Convert.ToDecimal(EfectivoNumeric.Text) <= 0)
+            {
+                args.IsValid = false;
+                paso = true;
+            }
+            else
+            {
+                args.IsValid = true;
+                paso = false;
+            }
+        }
+
+        protected void DevueltaCustomValidator_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            if (Convert.ToDecimal(DevueltaTextBox.Text) < 0||Convert.ToDecimal(EfectivoNumeric.Text) < Convert.ToDecimal(MontoTextBox.Text))
+            {
+                args.IsValid = false;
+                paso = true;
+            }
+            else
+            {
+                args.IsValid = true;
+                paso = false;
+            }
+        }
+
+        protected void ModificarArticuloButton_Click(object sender, EventArgs e)
+        {
+            GridViewRow row = FacturaDetalleGridView.SelectedRow;
+            //  int id = Convert.ToInt32(FacturaDetalleGridView.DataKeys[row.RowIndex].Value);
+
+            var Articulo = ((List<FacturaDetalle>)ViewState["Detalle"]).ElementAt(row.RowIndex);
+            ViewState["ModificarArticuo"] = new FacturaDetalle();
+            ViewState["ModificarArticuo"] = ((List<FacturaDetalle>)ViewState["Detalle"]).ElementAt(row.RowIndex);
+
+
+            ArticuloDropDownList.SelectedValue = Articulo.ProductoId.ToString();
+            PrecioArticuloTextBox.Text = Articulo.Precio.ToString();
+            CantidadTextBox.Text = Articulo.Cantidad.ToString();
+            ImporteTextBox.Text = BLL.HerramientasBLL.Importedemas(Convert.ToDecimal(CantidadTextBox.Text), Convert.ToDecimal(PrecioArticuloTextBox.Text)).ToString();
+            AgregarButton.Enabled = true;
+            CantidadTextBox.Enabled = true;
+            ((List<FacturaDetalle>)ViewState["Detalle"]).RemoveAt(row.RowIndex);
+        }
+
+        protected void EnviarAlModalModificar_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "ModalModificar", "$('#ModalModificar').modal();", true);
         }
     }
 }

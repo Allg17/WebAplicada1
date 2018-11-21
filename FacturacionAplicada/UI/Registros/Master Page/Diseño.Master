@@ -78,8 +78,9 @@
 
 <body>
     <form id="form" runat="server">
-        <div>
 
+        <div>
+            <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
             <div class="container-fluid">
 
                 <div class="row">
