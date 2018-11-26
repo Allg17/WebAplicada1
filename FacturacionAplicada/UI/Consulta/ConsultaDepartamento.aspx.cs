@@ -1,4 +1,5 @@
 ﻿using FacturacionAplicada.Entidades;
+using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,15 @@ namespace FacturacionAplicada.UI.Consulta
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            AHoradateTimePicker1.Text = DateTime.Now.ToString("yyyy-MM-dd");
-            FInaldateTimePicker2.Text = DateTime.Now.ToString("yyyy-MM-dd");
+            if (!Page.IsPostBack)
+            {
+                AHoradateTimePicker1.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                FInaldateTimePicker2.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                DatosReportViewer.ProcessingMode = Microsoft.Reporting.WebForms.ProcessingMode.Local;
+                DatosReportViewer.Reset();
+                DatosReportViewer.LocalReport.DataSources.Clear();
+                DatosReportViewer.LocalReport.ReportPath = Server.MapPath(@"~\Reportes\DepartamentoReporte.rdlc");
+            }
         }
 
       
@@ -72,6 +80,14 @@ namespace FacturacionAplicada.UI.Consulta
             }
             else
                 args.IsValid = true;
+        }
+
+        protected void ImprimirButton_Click(object sender, EventArgs e)
+        {
+            DatosReportViewer.LocalReport.DataSources.Clear();
+            DatosReportViewer.LocalReport.DataSources.Add(new ReportDataSource("DepartamentoReporte", BLL.DepartamentoBLL.GetList(filtrar)));
+            DatosReportViewer.LocalReport.Refresh();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "ModalReporte", "$('#ModalReporte').modal();", true);
         }
     }
 }

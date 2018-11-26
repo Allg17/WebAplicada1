@@ -1,4 +1,5 @@
 ﻿using FacturacionAplicada.Entidades;
+using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,12 @@ namespace FacturacionAplicada.UI.Consulta
         {
             if (!Page.IsPostBack)
             {
-
                 AHoradateTimePicker1.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 FInaldateTimePicker2.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                DatosReportViewer.ProcessingMode = Microsoft.Reporting.WebForms.ProcessingMode.Local;
+                DatosReportViewer.Reset();
+                DatosReportViewer.LocalReport.DataSources.Clear();
+                DatosReportViewer.LocalReport.ReportPath = Server.MapPath(@"~\Reportes\UsuarioReporte.rdlc");
             }
         }
         bool paso = false;
@@ -164,6 +168,14 @@ namespace FacturacionAplicada.UI.Consulta
             else
                 args.IsValid = true;
 
+        }
+
+        protected void imprimirButton_Click(object sender, EventArgs e)
+        {
+            DatosReportViewer.LocalReport.DataSources.Clear();
+            DatosReportViewer.LocalReport.DataSources.Add(new ReportDataSource("UsuarioReporte", BLL.UsuarioBLL.GetList(filtrar)));
+            DatosReportViewer.LocalReport.Refresh();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "ModalReporte", "$('#ModalReporte').modal();", true);
         }
     }
 }

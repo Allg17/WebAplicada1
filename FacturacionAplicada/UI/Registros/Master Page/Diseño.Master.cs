@@ -1,4 +1,5 @@
 ﻿using FacturacionAplicada.Entidades;
+using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -19,7 +20,8 @@ namespace FacturacionAplicada.UI.Registros.Master_Page
             if (!Page.IsPostBack)
             {
                 //UsuarioTextBox.Text = BLL.HerramientasBLL.user.Nombre;
-            }
+
+            } 
         }
 
         protected void CerrarSesionButton_Click(object sender, EventArgs e)

@@ -1,9 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/UI/Registros/Master Page/Diseño.Master" AutoEventWireup="true" CodeBehind="cEntradaArticulos.aspx.cs" Inherits="FacturacionAplicada.UI.Consulta.cEntradaArticulos" %>
+
+<%@ Register Assembly="Microsoft.ReportViewer.WebForms" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
-
+        <br />
+        <br />
+        <br />
+        <br />
         <div class="page-header text-center">
             <h1 style="font-size: x-large; font-family: 'Times New Roman', Times, serif; font: bold;"><ins>Consulta de Entrada Articulo</ins></h1>
         </div>
@@ -27,6 +32,7 @@
                 </div>
                 <div class="col-md-3 col-sm-2">
                     <asp:Button ID="BuscarButton" OnClick="BuscarButton_Click" runat="server" Text="Buscar" CssClass="form-control btn btn-primary" />
+                    <asp:Button ID="ImprimirButton" OnClick="ImprimirButton_Click" runat="server" Text="Imprimir" CssClass="form-control btn btn-primary" />
                 </div>
 
             </div>
@@ -69,7 +75,7 @@
 
 
                             <asp:BoundField DataField="EntradaArticuloID" HeaderText="EntradaArticuloID" />
-                            <asp:BoundField DataField="Fecha" HeaderText="Fecha"DataFormatString="{0:MM-dd-yyyy}" />
+                            <asp:BoundField DataField="Fecha" HeaderText="Fecha" DataFormatString="{0:MM-dd-yyyy}" />
                             <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" />
                             <asp:BoundField DataField="ArticuloID" HeaderText="ArticuloID" />
                             
@@ -92,6 +98,32 @@
                         <SortedDescendingCellStyle BackColor="#E9EBEF" />
                         <SortedDescendingHeaderStyle BackColor="#4870BE" />
                     </asp:GridView>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Report Modal-->
+    <div class="modal fade" id="ModalReporte" role="dialog" >
+        <div class="modal-dialog modal-lg" >
+            <div class="modal-content ">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title">Imprimir</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="div1">
+                        
+                        <rsweb:ReportViewer ID="DatosReportViewer" runat="server" Width="100%">
+                            <ServerReport ReportPath="" ReportServerUrl="" />
+                        </rsweb:ReportViewer>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                 </div>
             </div>
         </div>
