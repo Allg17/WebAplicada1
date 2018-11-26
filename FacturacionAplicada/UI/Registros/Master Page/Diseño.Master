@@ -72,7 +72,7 @@
             font-size: large;
             font-family: 'Times New Roman', Times, serif;
             font: bold
-        }*/
+        }
     </style>
 </head>
 
@@ -81,139 +81,74 @@
 
         <div>
             <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-            <div class="container-fluid">
 
-                <div class="row">
-                    <div class=" col-sm-4 col-md-3 ">
-                        <a href="/UI/Registros/Menu.aspx">
-                            <img style="float: right;" src="../../../icons/contact-center-ventas.jpg" alt="Logo Oficial de el sistema no se pudo cargar." title="+Ventas. Clic para ir al menu" width="150" height="150" id="imagen" /></a>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+                <div class="container">
+                    <a class="navbar-brand" href="/UI/Registros/Menu.aspx">+Ventas</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarResponsive">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item dropdownnav-item dropdown">
+                                <a class="navbar-brand dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Opciones
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <%--<a class="dropdown-item" href="/UI/Registros/Rusuarios.aspx">Usuarios</a>--%>
+                                    <asp:Button ID="UsuariosButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Usuarios" OnClick="UsuariosButton_Click" />
+                                    <%--<a class="dropdown-item" href="/UI/Registros/Rclientes.aspx">Clientes</a>--%>
+                                    <asp:Button ID="ClientesButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Clientes" OnClick="ClientesButton_Click" />
+                                    <div class="dropdown-divider"></div>
+                                    <%--<a class="dropdown-item" href="/UI/Registros/Login.aspx">Cerrar Sesion</a>--%>
+                                    <asp:LoginStatus ID="LoginStatus1" runat="server" />
+
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="navbar-brand dropdown-toggle" href="#" id="ControlDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Control
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <%--<a class="dropdown-item" href="/UI/Registros/Rarticulos.aspx">Articulos</a>--%>
+                                    <asp:Button ID="ArticulosButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Articulos" OnClick="ArticulosButton_Click" />
+                                    <%--<a class="dropdown-item" href="/UI/Registros/rEntradaArticulo.aspx">Entrada Articulos</a>--%>
+                                    <asp:Button ID="EntradaArticulosButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Entrada Articulos" OnClick="EntradaArticulosButton_Click" />
+                                    <%--<a class="dropdown-item" href="/UI/Registros/Rdepartamento.aspx">Departamento</a>--%>
+                                    <asp:Button ID="DepartamentoButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Departamento" OnClick="DepartamentoButton_Click" />
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="navbar-brand dropdown-toggle" href="#" id="DespachoDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Despacho
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <%--<a class="dropdown-item" href="/UI/Registros/Rfacturacion.aspx">Facturacion</a>--%>
+                                    <asp:Button ID="FarturacionButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Facturacion" OnClick="FarturacionButton_Click" />
+
+
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="navbar-brand dropdown-toggle" href="#" id="ConsultasDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Consultas
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <asp:Button ID="cFacturacionButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Facturacion " OnClick="cFacturacionButton_Click" />
+                                    <asp:Button ID="cArticulosButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Articulos " OnClick="cArticulosButton_Click" />
+                                    <asp:Button ID="EntradaButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Entrada Articulo " OnClick="EntradaButton_Click" />
+                                    <asp:Button ID="DepartamentoConsultaButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Departamento " OnClick="DepartamentoConsultaButton_Click" />
+                                    <asp:Button ID="UsuariosConsultaButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Usuario " OnClick="UsuariosConsultaButton_Click" />
+                                    <asp:Button ID="cClientesButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Clientes " OnClick="cClientesButton_Click" />
+
+                                </div>
+                            </li>
+                            <li>
+                                <asp:LoginName ID="LoginName1" runat="server" />
+                                
+                            </li>
+                        </ul>
                     </div>
-                    <div class="col-sm-4 col-md-7 offset-md-2  ">
-                        <a href="/UI/Registros/Menu.aspx" title="Clic para ir al Menu">
-                            <h1 class="display-4">Facturacion</h1>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-
-            <%--  <div class="container">--%>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-
-                        <li class="nav-item dropdown">
-                            <a class="navbar-brand dropdown-toggle" href="#" id="OpcionesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Opciones
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <%--<a class="dropdown-item" href="/UI/Registros/Rusuarios.aspx">Usuarios</a>--%>
-                                <asp:Button ID="UsuariosButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Usuarios" OnClick="UsuariosButton_Click" />
-                                <%--<a class="dropdown-item" href="/UI/Registros/Rclientes.aspx">Clientes</a>--%>
-                                <asp:Button ID="ClientesButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Clientes" OnClick="ClientesButton_Click" />
-                                <div class="dropdown-divider"></div>
-                                <%--<a class="dropdown-item" href="/UI/Registros/Login.aspx">Cerrar Sesion</a>--%>
-                                <asp:Button ID="CerrarSesionButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Cerrar Sesion" OnClick="CerrarSesionButton_Click" />
-
-                            </div>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="navbar-brand dropdown-toggle" href="#" id="ControlDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Control
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <%--<a class="dropdown-item" href="/UI/Registros/Rarticulos.aspx">Articulos</a>--%>
-                                <asp:Button ID="ArticulosButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Articulos" OnClick="ArticulosButton_Click" />
-                                <%--<a class="dropdown-item" href="/UI/Registros/rEntradaArticulo.aspx">Entrada Articulos</a>--%>
-                                <asp:Button ID="EntradaArticulosButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Entrada Articulos" OnClick="EntradaArticulosButton_Click" />
-                                <%--<a class="dropdown-item" href="/UI/Registros/Rdepartamento.aspx">Departamento</a>--%>
-                                <asp:Button ID="DepartamentoButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Departamento" OnClick="DepartamentoButton_Click" />
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="navbar-brand dropdown-toggle" href="#" id="DespachoDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Despacho
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <%--<a class="dropdown-item" href="/UI/Registros/Rfacturacion.aspx">Facturacion</a>--%>
-                                <asp:Button ID="FarturacionButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Facturacion" OnClick="FarturacionButton_Click" />
-
-
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="navbar-brand dropdown-toggle" href="#" id="ConsultasDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Consultas
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                               <asp:Button ID="cFacturacionButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Facturacion " OnClick="cFacturacionButton_Click" />
-                                <asp:Button ID="cArticulosButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Articulos " OnClick="cArticulosButton_Click" />
-                                <asp:Button ID="EntradaButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Entrada Articulo " OnClick="EntradaButton_Click" />
-                                <asp:Button ID="DepartamentoConsultaButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Departamento " OnClick="DepartamentoConsultaButton_Click" />
-                                <asp:Button ID="UsuariosConsultaButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Usuario " OnClick="UsuariosConsultaButton_Click" />
-                                <asp:Button ID="cClientesButton" CausesValidation="false" class=" form-control dropdown-item" runat="server" Text="Clientes " OnClick="cClientesButton_Click" />
-
-                            </div>
-                        </li>
-                    </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                        <span>User:</span>
-                        <asp:TextBox ID="UsuarioTextBox" runat="server" CssClass="form" Enabled="false"></asp:TextBox>
-                    </form>
-
                 </div>
             </nav>
 
-            <%-- Modal y log in --%>
-            <div class="modal" id="ModalLogIn">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content ">
-                        <div class="modal-header bg-danger">
-                            <h5 class="modal-title">¡Atencion!</h5>
 
-                            <%--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>--%>
-                        </div>
-                        <div class="modal-body">
-                            <p>Debe iniciar Sesion para continuar</p>
-                            <div class="row">
-                                <div class=" offset-md-2 col-sm-8 col-md-8">
-                                    <p><ins>Nombre de Usuario: </ins></p>
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class=" offset-md-2 col-sm-12 col-md-8">
-                                    <asp:TextBox ID="NombreUsuarioTextBox" runat="server" class="form-control" placeholder="Nombre de Usuario" aria-label="Nombre de Usuario"></asp:TextBox>
-                                </div>
-
-                            </div>
-                            <br />
-                            <div class="row">
-                                <div class=" offset-md-2 col-sm-8 col-md-8">
-                                    <p><ins>Contraseña:</ins></p>
-                                </div>
-                            </div>
-                            <div class="row">
-
-                                <div class="offset-md-2 col-sm-8 col-md-8">
-                                    <div class="input-group mb-3">
-                                        <asp:TextBox ID="ClaveTextBox" type="password" runat="server" class="form-control" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="IniciarButton" MaxLength="10"></asp:TextBox>
-                                        <div class="input-group-append">
-                                            <asp:Button ID="IniciarButton" CssClass="btn btn-danger" runat="server" Text="Iniciar" OnClick="IniciarButton_Click" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <asp:Button ID="CerrarModals" class="close" data-dismiss="modal" aria-label="Close" runat="server" Text="Close" CssClass="form-control btn btn-danger" />
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <%-- Modal de validar --%>
             <div class="modal" id="ModalValidar">
@@ -239,28 +174,18 @@
                 </div>
             </div>
 
-
-
             <div>
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
             </div>
         </div>
     </form>
-    <br />
-    <br />
-    <br />
-    <br />
-
-    <footer>
-        <div class=" bg-danger form-control">
-            <p class="text-center text-white">Albert Lopez Garcia. "+Ventas".</p>
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
         </div>
+        <!-- /.container -->
     </footer>
-
-
-
-
 </body>
 </html>
 

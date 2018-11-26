@@ -58,13 +58,13 @@ namespace FacturacionAplicada.UI.Registros.Master_Page {
         protected global::System.Web.UI.WebControls.Button ClientesButton;
         
         /// <summary>
-        /// CerrarSesionButton control.
+        /// LoginStatus1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button CerrarSesionButton;
+        protected global::System.Web.UI.WebControls.LoginStatus LoginStatus1;
         
         /// <summary>
         /// ArticulosButton control.
@@ -157,49 +157,13 @@ namespace FacturacionAplicada.UI.Registros.Master_Page {
         protected global::System.Web.UI.WebControls.Button cClientesButton;
         
         /// <summary>
-        /// UsuarioTextBox control.
+        /// LoginName1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox UsuarioTextBox;
-        
-        /// <summary>
-        /// NombreUsuarioTextBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox NombreUsuarioTextBox;
-        
-        /// <summary>
-        /// ClaveTextBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ClaveTextBox;
-        
-        /// <summary>
-        /// IniciarButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button IniciarButton;
-        
-        /// <summary>
-        /// CerrarModals control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button CerrarModals;
+        protected global::System.Web.UI.WebControls.LoginName LoginName1;
         
         /// <summary>
         /// ContentPlaceHolder1 control.

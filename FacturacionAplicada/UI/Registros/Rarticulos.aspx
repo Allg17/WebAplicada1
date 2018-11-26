@@ -4,6 +4,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
+        <br />
+        <br />
+        <br />
         <div class="page-header text-center">
             <h1 style="font-size: x-large; font-family: 'Times New Roman', Times, serif; font: bold;"><ins>Registro de Articulos</ins></h1>
         </div>
@@ -104,6 +107,7 @@
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" CssClass="ErrorMessage" ControlToValidate="CostoNumeric" ValidationGroup="Guardar" runat="server" ErrorMessage="Digite un Costo"></asp:RequiredFieldValidator>
                 </div>
             </div>
+           
        </div>
 
         <%--Ganancia--%>
@@ -118,6 +122,7 @@
                 <div class=" col-sm-4 offset-md-3 col-md-3">
                     <asp:TextBox ID="GananciaTextBox" type="text" runat="server" CssClass="form-control" placeholder="Ganancia" aria-label="Ganancia" ReadOnly="true" Enabled="false"></asp:TextBox>
                 </div>
+             <asp:CustomValidator ID="CustomValidator2" runat="server" ErrorMessage="El precio no puede ser menor que el costo" CssClass="ErrorMessage" ControlToValidate="GananciaTextBox" OnServerValidate="CustomValidator2_ServerValidate" ValidationGroup="Guardar"></asp:CustomValidator>
             </div>
         </div>
 
@@ -140,7 +145,7 @@
         <%--Bottones--%>
         <div class="form-group">
             <div class="row">
-                <div class="offset-md-3 col-sm-4 col-md-2">
+                <div class="offset-md-2 col-sm-4 col-md-2">
                     <asp:Button ID="NuevoButton" CausesValidation="false" runat="server" Text="Nuevo" CssClass="form-control btn btn-primary" OnClick="NuevoButton_Click" />
                 </div>
                 <div class=" col-sm-4 col-md-2 ">

@@ -66,12 +66,7 @@ namespace FacturacionAplicada.UI.Registros
 
         protected void NuevoButton_Click(object sender, EventArgs e)
         {
-
             Limpiar();
-            UsuarioDropDownList.Enabled = false;
-            
-
-
         }
 
         private void Limpiar()

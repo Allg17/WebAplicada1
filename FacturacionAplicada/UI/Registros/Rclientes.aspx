@@ -6,7 +6,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
-        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <br />
+        <br />
+        <br />
 
         <div class="page-header text-center">
             <h1 style="font-size: x-large; font-family: 'Times New Roman', Times, serif; font: bold;"><ins>Registro de Clientes</ins></h1>

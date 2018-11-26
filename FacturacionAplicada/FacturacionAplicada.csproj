@@ -76,21 +76,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\css\bootstrap-grid.css.map" />
-    <Content Include="Content\css\bootstrap-grid.min.css.map" />
-    <Content Include="Content\css\bootstrap-reboot.css.map" />
-    <Content Include="Content\css\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\css\bootstrap.css.map" />
-    <Content Include="Content\css\bootstrap.min.css.map" />
     <Content Include="Content\css\Personal.css" />
     <Content Include="Content\css\toastr.css" />
-    <Content Include="Content\js\bootstrap.bundle.js.map" />
-    <Content Include="Content\js\bootstrap.bundle.min.js.map" />
-    <Content Include="Content\js\bootstrap.js.map" />
-    <Content Include="Content\js\bootstrap.min.js.map" />
     <None Include="packages.config" />
     <Content Include="Content\js\jquery.maskedinput.js" />
     <Content Include="DAL\Script.sql" />
+    <Content Include="Default.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="UI\Consulta\cArticulos.aspx" />
     <Content Include="UI\Consulta\cClientes.aspx" />
@@ -99,6 +90,8 @@
     <Content Include="UI\Consulta\ConsultaDepartamento.aspx" />
     <Content Include="UI\Consulta\ConsultaDeUsuarios.aspx" />
     <Content Include="UI\Registros\Master Page\Diseño.Master" />
+    <None Include="Properties\PublishProfiles\MasVentasFinal - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\MasVentasFinal - Web Deploy.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -111,10 +104,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\css\bootstrap-grid.css" />
-    <Content Include="Content\css\bootstrap-grid.min.css" />
-    <Content Include="Content\css\bootstrap-reboot.css" />
-    <Content Include="Content\css\bootstrap-reboot.min.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\js\bootstrap.bundle.js" />
@@ -185,7 +174,9 @@
     <Content Include="UI\Registros\RentradaArticulo.aspx" />
     <Content Include="UI\Registros\Rfacturacion.aspx" />
     <Content Include="UI\Registros\Rusuarios.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\ClienteBLL.cs" />
@@ -197,6 +188,13 @@
     <Compile Include="BLL\ProductoBLL.cs" />
     <Compile Include="BLL\UsuarioBLL.cs" />
     <Compile Include="DAL\Contexto.cs" />
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Entidades\Cliente.cs" />
     <Compile Include="Entidades\Departamento.cs" />
     <Compile Include="Entidades\EntradaArticulo.cs" />

@@ -18,7 +18,7 @@ namespace FacturacionAplicada.UI.Registros.Master_Page
 
             if (!Page.IsPostBack)
             {
-                UsuarioTextBox.Text = BLL.HerramientasBLL.user.Nombre;
+                //UsuarioTextBox.Text = BLL.HerramientasBLL.user.Nombre;
             }
         }
 

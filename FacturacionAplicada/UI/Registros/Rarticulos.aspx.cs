@@ -11,7 +11,7 @@ namespace FacturacionAplicada.UI.Registros
     public partial class Rarticulos : System.Web.UI.Page
     {
         private string Condicion = "Select One";
-
+        bool paso = false;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -95,6 +95,8 @@ namespace FacturacionAplicada.UI.Registros
 
         protected void GuardarButton_Click(object sender, EventArgs e)
         {
+            if (paso)
+                return;
 
             if (ArticuloDropDownList.Text.Equals(Condicion))
             {
@@ -198,9 +200,28 @@ namespace FacturacionAplicada.UI.Registros
             if (args.Value.Equals(Condicion))
             {
                 args.IsValid = false;
+                paso = true;
             }
             else
+            {
                 args.IsValid = true;
+                paso = false;
+            }
+        }
+
+        protected void CustomValidator2_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+
+            if (Convert.ToDecimal(args.Value) < 0)
+            {
+                args.IsValid = false;
+                paso = true;
+            }
+            else
+            {
+                args.IsValid = true;
+                paso = false;
+            }
         }
     }
 }

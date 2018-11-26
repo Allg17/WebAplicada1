@@ -4,6 +4,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid">
+        <br />
+        <br />
+        <br />
         <div class="page-header text-center">
             <h1 style="font-size: x-large; font-family: 'Times New Roman', Times, serif; font: bold;"><ins>Facturacion</ins></h1>
         </div>
