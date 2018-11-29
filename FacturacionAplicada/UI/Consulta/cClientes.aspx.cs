@@ -41,6 +41,27 @@ namespace FacturacionAplicada.UI.Consulta
             if (paso)
                 return;
 
+            Switch();
+
+            DatosGridView.DataSource = BLL.ClienteBLL.GetList(filtrar);
+            DatosGridView.DataBind();
+        }
+
+        protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            int ejem = 0;
+            if (FiltroComboBox.SelectedIndex.Equals(1) && int.TryParse(CriterioTextBox.Text, out ejem) == false)
+            {
+                paso = true;
+                args.IsValid = false;
+                CustomValidator1.ErrorMessage = "Debe introducir un numero en el criterio";
+            }
+            else
+                args.IsValid = true;
+        }
+
+        private void Switch()
+        {
             int id;
             var DesdeDateTime = Convert.ToDateTime(AHoradateTimePicker1.Text);
             var HastaDateTime = Convert.ToDateTime(FInaldateTimePicker2.Text);
@@ -99,7 +120,7 @@ namespace FacturacionAplicada.UI.Consulta
                     break;
                 //Direccion
                 case 3:
-                    
+
                     if (FechacheckBox.Checked == true)
                     {
                         filtrar = t => t.Direccion.Contains(CriterioTextBox.Text) && (t.Fecha >= DesdeDateTime.Date) && (t.Fecha <= HastaDateTime.Date);
@@ -112,7 +133,7 @@ namespace FacturacionAplicada.UI.Consulta
                     break;
                 //Cedula
                 case 4:
-               
+
                     if (FechacheckBox.Checked == true)
                     {
                         filtrar = t => t.Cedula.Contains(CriterioTextBox.Text) && (t.Fecha >= DesdeDateTime.Date) && (t.Fecha <= HastaDateTime.Date);
@@ -123,28 +144,14 @@ namespace FacturacionAplicada.UI.Consulta
                     }
 
                     break;
-               
+
 
             }
-            DatosGridView.DataSource = BLL.ClienteBLL.GetList(filtrar);
-            DatosGridView.DataBind();
-        }
-
-        protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
-        {
-            int ejem = 0;
-            if (FiltroComboBox.SelectedIndex.Equals(1) && int.TryParse(CriterioTextBox.Text, out ejem) == false)
-            {
-                paso = true;
-                args.IsValid = false;
-                CustomValidator1.ErrorMessage = "Debe introducir un numero en el criterio";
-            }
-            else
-                args.IsValid = true;
         }
 
         protected void ImprimirButton_Click(object sender, EventArgs e)
         {
+            Switch();
             DatosReportViewer.LocalReport.DataSources.Clear();
             DatosReportViewer.LocalReport.DataSources.Add(new ReportDataSource("ClienteReporte", BLL.ClienteBLL.GetList(filtrar)));
             DatosReportViewer.LocalReport.Refresh();

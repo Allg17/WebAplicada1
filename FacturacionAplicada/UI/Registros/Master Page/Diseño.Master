@@ -18,7 +18,8 @@
     <link href="../../../Content/css/toastr.css" rel="stylesheet" />
     <%-- Toastr.js --%>
     <script src="../../../Content/js/toastr.js"></script>
-
+    <link href="../../../icons/favicon.ico" rel="shortcut icon" type="image/x-icon"  />
+    
 
     <%--    <script type="text/javascript" src="../../../Content/js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="../../../Content/js/jquery.maskedinput.js"></script>
@@ -77,7 +78,7 @@
             font-size: large;
             font-family: 'Times New Roman', Times, serif;
             font: bold
-        }
+        }*/
     </style>
 </head>
 
@@ -187,13 +188,15 @@
                 </asp:ContentPlaceHolder>
             </div>
         </div>
-    </form>
-    <footer class="py-5 bg-dark">
+        <footer class="py-5 bg-dark">
         <div class="container">
             <p class="m-0 text-center text-white">Copyright &copy; +Ventas - Aplicada 2 - Albert Lopez Garcia - 2015-0679</p>
         </div>
         <!-- /.container -->
     </footer>
+    </form>
+
+    
 </body>
 </html>
 

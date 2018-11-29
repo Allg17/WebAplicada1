@@ -32,6 +32,15 @@ namespace FacturacionAplicada.UI.Consulta
         {
             if (paso)
                 return;
+            Switch();
+            DatosGridView.DataSource = BLL.DepartamentoBLL.GetList(filtrar);
+
+            DatosGridView.DataBind();
+
+        }
+
+        private void Switch()
+        {
             int id;
             switch (FiltroComboBox.SelectedIndex)
             {
@@ -39,7 +48,7 @@ namespace FacturacionAplicada.UI.Consulta
 
                 case 0:
 
-                    
+
                     filtrar = t => true;
                     break;
 
@@ -54,12 +63,8 @@ namespace FacturacionAplicada.UI.Consulta
 
                     filtrar = t => t.Nombre.Contains(CriterioTextBox.Text);
                     break;
-              
+
             }
-            DatosGridView.DataSource = BLL.DepartamentoBLL.GetList(filtrar);
-
-            DatosGridView.DataBind();
-
         }
 
         protected void DatosGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -84,6 +89,7 @@ namespace FacturacionAplicada.UI.Consulta
 
         protected void ImprimirButton_Click(object sender, EventArgs e)
         {
+            Switch();
             DatosReportViewer.LocalReport.DataSources.Clear();
             DatosReportViewer.LocalReport.DataSources.Add(new ReportDataSource("DepartamentoReporte", BLL.DepartamentoBLL.GetList(filtrar)));
             DatosReportViewer.LocalReport.Refresh();

@@ -231,7 +231,7 @@
     <Content Include="icons\0icons8_Error.ico" />
     <Content Include="icons\0icons8_Error_32.png" />
     <Content Include="icons\contact-center-ventas.jpg" />
-    <Content Include="icons\icons8_Add_New.ico" />
+    <Content Include="icons\favicon.ico" />
     <Content Include="icons\icons8_Add_New_16.png" />
     <Content Include="icons\icons8_Add_New_32.png" />
     <Content Include="icons\icons8_Bill.ico" />

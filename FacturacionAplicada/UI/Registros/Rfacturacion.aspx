@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="Facturacion" Language="C#" MasterPageFile="~/UI/Registros/Master Page/Diseño.Master" AutoEventWireup="true" CodeBehind="Rfacturacion.aspx.cs" Inherits="FacturacionAplicada.UI.Registros.Rfacturacion" %>
 
+<%@ Register Assembly="Microsoft.ReportViewer.WebForms" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -16,6 +18,7 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-sm-3 col-md-2 offset-md-3">
+                    ID:
                     <asp:DropDownList ID="FacturaDropDownList" OnTextChanged="FacturaDropDownList_TextChanged" AutoPostBack="true" AppendDataBoundItems="true" CssClass="form-control" runat="server"></asp:DropDownList>
                     <asp:CustomValidator ID="CustomValidator1" ControlToValidate="FacturaDropDownList" OnServerValidate="CustomValidator1_ServerValidate" CssClass="ErrorMessage" ValidationGroup="Eliminar" runat="server" ErrorMessage="Seleccione un ID"></asp:CustomValidator>
 
@@ -24,6 +27,7 @@
                     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                         <ContentTemplate>
                             <fieldset>
+                                Fecha:
                                 <asp:TextBox ID="Fecha" type="date" CssClass="form-control" runat="server"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate-="Fecha" ValidationGroup="Guardar" CssClass="ErrorMessage" runat="server" ErrorMessage="Seleccione una Fecha"></asp:RequiredFieldValidator>
                             </fieldset>
@@ -53,6 +57,7 @@
                     <asp:UpdatePanel ID="UpdatePanel4" runat="server">
                         <ContentTemplate>
                             <fieldset>
+                                Cliente:
                                 <asp:DropDownList ID="CLienteDropDownList" CssClass="form-control " runat="server" aria-describedby="NombreClienteTextBox">
                                 </asp:DropDownList>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="CLienteDropDownList" ValidationGroup="Guardar" CssClass="ErrorMessage" runat="server" ErrorMessage="Seleccione un Cliente"></asp:RequiredFieldValidator>
@@ -67,6 +72,7 @@
         <div class="form-group">
             <div class="row">
                 <div class="offset-md-3  col-sm-12 col-md-7">
+                    Descripcion:
                     <asp:TextBox ID="DescripcionTextBox" runat="server" TextMode="MultiLine" CssClass="form-control " placeholder="Descripcion" aria-label="Descripcion"></asp:TextBox>
                 </div>
             </div>
@@ -76,10 +82,11 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-sm-4 col-md-4  offset-md-3 ">
+                    Articulo:
                     <div class="input-group md-3">
-
                         <asp:DropDownList ID="ArticuloDropDownList" OnTextChanged="ArticuloDropDownList_TextChanged" AppendDataBoundItems="true" AutoPostBack="true" ontextAppendDataBoundItems="true" CssClass="form-control  text-center" runat="server"></asp:DropDownList>
                         <div class="input-group-append">
+                            <label class="form-control">Precio:</label>
                             <asp:TextBox ID="PrecioArticuloTextBox" CssClass="form-control  text-center" runat="server" Enabled="false" placeholder="Precio Articulo" aria-label="Precios Articulo"></asp:TextBox>
                         </div>
                     </div>
@@ -93,6 +100,7 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-sm-4 col-md-2 offset-md-3">
+                    Cantidad:
                     <div class="input-group mb-3">
                         <asp:TextBox ID="CantidadTextBox" OnTextChanged="CantidadTextBox_TextChanged" AutoPostBack="true" CssClass="form-control  text-center" type="number" runat="server" placeholder="Cantidad" aria-label="Cantidad" aria-describedby="AgregarButton"></asp:TextBox>
                         <div class="input-group-append">
@@ -102,6 +110,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4 col-md-2 offset-md-0">
+                    Importe:
                     <asp:TextBox ID="ImporteTextBox" CssClass="form-control  text-center" runat="server" Enabled="false" placeholder="Importe" aria-label="Importe"></asp:TextBox>
                 </div>
             </div>
@@ -158,16 +167,17 @@
         <%--Efectivo, Devuelta, Monto--%>
         <div class="form-group">
             <div class="row">
-                <div class="col-sm-4 col-md-5  offset-md-3">
+                <div class="col-sm-4 col-md-7  offset-md-3">
                     <%--Efectivo--%>
+                    Efectivo:
                     <div class="input-group mb-3">
-
-                        <asp:TextBox ID="EfectivoNumeric" Text="0" OnTextChanged="EfectivoNumeric_TextChanged" AutoPostBack="true" type="number" CssClass="form-control " Style="font-size: 90%" runat="server" aria-label="Efectivo" placeholder="Efectivo"></asp:TextBox>
-
+                        <asp:TextBox ID="EfectivoNumeric" Text="0" OnTextChanged="EfectivoNumeric_TextChanged" AutoPostBack="true" type="number" CssClass="form-control col-md-1 " Style="font-size: 90%" runat="server" aria-label="Efectivo" placeholder="Efectivo"></asp:TextBox>
                         <div class="input-group-append">
                             <%--Devuelta--%>
                             <div class="input-group mb-3">
+                                <label class="form-control col-md-2">Devuelta:</label>
                                 <asp:TextBox ID="DevueltaTextBox" CssClass="form-control text-center" runat="server" Enabled="false" aria-describedby="MontoTextBox" placeholder="Devuelta" aria-label="Devuelta"></asp:TextBox>
+                                <label class="form-control col-md-2">Monto:</label>
                                 <%--Monto--%>
                                 <div class="input-group-append">
                                     <asp:TextBox ID="MontoTextBox" CssClass="form-control text-center " runat="server" Enabled="false" placeholder="Monto" aria-label="Monto"></asp:TextBox>
@@ -195,11 +205,14 @@
                     <asp:Button ID="GuardarButton" ValidationGroup="Guardar" OnClick="GuardarButton_Click" runat="server" Text="Guardar" CssClass="form-control btn btn-success" />
                 </div>
                 <div class=" col-sm-4 col-md-2  ">
-                    <asp:Button ID="EliminarButton" ValidationGroup="Eliminar" runat="server" Text="Eliminar" CssClass="form-control btn btn-danger" />
+                    <asp:Button ID="EliminarButton" OnClick="EliminarButton_Click" ValidationGroup="Eliminar" runat="server" Text="Eliminar" CssClass="form-control btn btn-danger" />
+                </div> 
+                <div class=" col-sm-4 col-md-2  ">
+                    <asp:Button ID="ImprimirButton" OnClick="ImprimirButton_Click" CausesValidation="false" runat="server" Text="Imprimir" CssClass="form-control btn btn-info" />
                 </div>
             </div>
-        </div>
 
+        </div>
         <!--Modal de confirmacion de eliminar-->
         <div class="modal" id="ModalEliminar">
             <div class="modal-dialog" role="document">
@@ -238,6 +251,32 @@
                         <asp:Button ID="ModificarArticuloButton" runat="server" CssClass="btn btn-danger" Text="Si" OnClick="ModificarArticuloButton_Click" />
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Report Modal-->
+    <div class="modal fade" id="ModalReporte" role="dialog" >
+        <div class="modal-dialog modal-lg" >
+            <div class="modal-content ">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title">Imprimir</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="div1">
+                        
+                        <rsweb:ReportViewer ID="DatosReportViewer" runat="server" Width="100%">
+                            <ServerReport ReportPath="" ReportServerUrl="" />
+                        </rsweb:ReportViewer>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                 </div>
             </div>
         </div>

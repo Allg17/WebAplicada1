@@ -55,6 +55,15 @@ namespace FacturacionAplicada.UI.Consulta
             if (paso)
                 return;
 
+            Switch();
+           
+            DatosGridView.DataSource = BLL.ProductoBLL.GetList(filtrar);
+           
+            DatosGridView.DataBind();
+        }
+
+        private void Switch()
+        {
             int id;
             var DesdeDateTime = Convert.ToDateTime(AHoradateTimePicker1.Text);
             var HastaDateTime = Convert.ToDateTime(FInaldateTimePicker2.Text);
@@ -177,12 +186,11 @@ namespace FacturacionAplicada.UI.Consulta
                     break;
 
             }
-            DatosGridView.DataSource = BLL.ProductoBLL.GetList(filtrar);
-            DatosGridView.DataBind();
         }
 
         protected void ImprimirButton_Click(object sender, EventArgs e)
         {
+            Switch();
             DatosReportViewer.LocalReport.DataSources.Clear();
             DatosReportViewer.LocalReport.DataSources.Add(new ReportDataSource("ProductoReporte", BLL.ProductoBLL.GetList(filtrar)));
             DatosReportViewer.LocalReport.Refresh();

@@ -68,6 +68,11 @@ namespace FacturacionAplicada.BLL
                 var eliminar = db.bill.Find(Id);
                 if (eliminar != null)
                 {
+                     
+                    foreach (var item in GetList(x => x.FacturaId == Id).Last().BillDetalle)
+                    {
+                        db.product.Find(item.ProductoId).Cantidad += item.Cantidad;  
+                    }
                     db.Billes.RemoveRange(db.Billes.Where(x => x.FacturaId == eliminar.FacturaId));
                     db.Entry(eliminar).State = EntityState.Deleted;
                     if (db.SaveChanges() > 0)

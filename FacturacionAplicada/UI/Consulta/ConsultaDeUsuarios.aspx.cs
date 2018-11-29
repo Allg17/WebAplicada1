@@ -38,6 +38,13 @@ namespace FacturacionAplicada.UI.Consulta
             if (paso)
                 return;
 
+            Switch();
+            DatosGridView.DataSource = BLL.UsuarioBLL.GetList(filtrar);
+            DatosGridView.DataBind();
+        }
+
+        private void Switch()
+        {
             int id;
             var DesdeDateTime = Convert.ToDateTime(AHoradateTimePicker1.Text);
             var HastaDateTime = Convert.ToDateTime(FInaldateTimePicker2.Text);
@@ -58,7 +65,7 @@ namespace FacturacionAplicada.UI.Consulta
 
                     if (FechacheckBox.Checked == true)
                     {
-                        filtrar = t => true && (t.Fecha >= DesdeDateTime.Date) && (t.Fecha <= HastaDateTime.Date); 
+                        filtrar = t => true && (t.Fecha >= DesdeDateTime.Date) && (t.Fecha <= HastaDateTime.Date);
                     }
                     else
                     {
@@ -72,7 +79,7 @@ namespace FacturacionAplicada.UI.Consulta
                     id = int.Parse(CriterioTextBox.Text);
                     if (FechacheckBox.Checked == true)
                     {
-                        filtrar = t => t.IdUsuario == id && (t.Fecha >= DesdeDateTime.Date) && (t.Fecha <= HastaDateTime.Date); 
+                        filtrar = t => t.IdUsuario == id && (t.Fecha >= DesdeDateTime.Date) && (t.Fecha <= HastaDateTime.Date);
                     }
                     else
                     {
@@ -86,7 +93,7 @@ namespace FacturacionAplicada.UI.Consulta
 
                     if (FechacheckBox.Checked == true)
                     {
-                        filtrar = t => t.Nombre.Equals(CriterioTextBox.Text) && (t.Fecha >= DesdeDateTime.Date) && (t.Fecha <= HastaDateTime.Date); 
+                        filtrar = t => t.Nombre.Equals(CriterioTextBox.Text) && (t.Fecha >= DesdeDateTime.Date) && (t.Fecha <= HastaDateTime.Date);
                     }
                     else
                     {
@@ -112,7 +119,7 @@ namespace FacturacionAplicada.UI.Consulta
 
                     if (FechacheckBox.Checked == true)
                     {
-                        filtrar = t => t.NombreUsuario.Equals(CriterioTextBox.Text) && (t.Fecha >= DesdeDateTime.Date) && (t.Fecha <= HastaDateTime.Date); 
+                        filtrar = t => t.NombreUsuario.Equals(CriterioTextBox.Text) && (t.Fecha >= DesdeDateTime.Date) && (t.Fecha <= HastaDateTime.Date);
                     }
                     else
                     {
@@ -134,8 +141,6 @@ namespace FacturacionAplicada.UI.Consulta
                     break;
 
             }
-            DatosGridView.DataSource = BLL.UsuarioBLL.GetList(filtrar);
-            DatosGridView.DataBind();
         }
 
         private bool SetError(int error)
@@ -172,6 +177,7 @@ namespace FacturacionAplicada.UI.Consulta
 
         protected void imprimirButton_Click(object sender, EventArgs e)
         {
+            Switch();
             DatosReportViewer.LocalReport.DataSources.Clear();
             DatosReportViewer.LocalReport.DataSources.Add(new ReportDataSource("UsuarioReporte", BLL.UsuarioBLL.GetList(filtrar)));
             DatosReportViewer.LocalReport.Refresh();
