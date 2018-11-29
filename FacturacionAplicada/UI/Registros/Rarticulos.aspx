@@ -10,7 +10,8 @@
         <div class="page-header text-center">
             <h1 style="font-size: x-large; font-family: 'Times New Roman', Times, serif; font: bold;"><ins>Registro de Articulos</ins></h1>
         </div>
-
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
         <%--ID y Fecha--%>
         <div class="form-group">
             <div class="row">
@@ -157,5 +158,16 @@
 
             </div>
       </div>
+        </ContentTemplate>
+            <Triggers>
+                <asp:AsyncPostBackTrigger ControlID="NuevoButton" />
+                <asp:AsyncPostBackTrigger ControlID="GuardarButton" />
+                <asp:AsyncPostBackTrigger ControlID="EliminarButton" />
+                <asp:AsyncPostBackTrigger ControlID="CostoNumeric" />
+                <asp:AsyncPostBackTrigger ControlID="PrecioTextBox" />
+                <asp:AsyncPostBackTrigger ControlID="DepartamentoDropDownList" />
+                <asp:AsyncPostBackTrigger ControlID="ArticuloDropDownList" />
+            </Triggers>
+        </asp:UpdatePanel>
     </div>
 </asp:Content>
